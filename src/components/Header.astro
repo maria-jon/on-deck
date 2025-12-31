@@ -1,12 +1,15 @@
 ---
-
+import HeaderLogo from "../assets/d20-light.svg" 
 ---
 
 <header>
   <a href="/">
-    <span class="title">
-      On Deck
-    </span>
+    <HeaderLogo 
+      width={32}
+      height={32}
+      aria-label="On Deck logo"
+      class="logo-img"
+    />
   </a>
   <nav>
     <a href="/">Home</a>
@@ -25,12 +28,21 @@
     align-items: center;
   }
 
+  .logo-img {
+    fill: #C5AC46;
+  }
+  .logo-img:hover {
+    fill: #FFF9DA;
+  }
+
+  /*
   .title {
     color: var(--gold);
     font-size: 3em;
     font-weight: 600;
     margin: 0.5em 0; 
   }
+  */
 
   nav {
     outline: 1px solid var(--blue-dark);
