@@ -3,5 +3,44 @@
 ---
 
 <header>
-  <div>On Deck</div>
+  <a href="/">
+    <span class="title">
+      On Deck
+    </span>
+  </a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/how-to">How to use</a>
+    <a href="/about">About</a>
+  </nav>
 </header>
+
+<style lang="scss">
+  header {
+    background-color: var(--blue-darker);
+    padding: var(--margin-md);
+    min-height: 4.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    color: var(--gold);
+  }
+
+  nav {
+    outline: 1px solid var(--blue-dark);
+    display: flex;
+
+    a {
+      color: var(--gold);
+      padding: var(--margin-sm);
+    }
+
+    a:hover {
+      background-color: var(--blue);
+      color: var(--gold-lighter);
+    }
+  }
+</style>
