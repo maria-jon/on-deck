@@ -1,0 +1,41 @@
+.tracker-wrapper {
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.tracker-container {
+  background-color: var(--gold);
+  padding: var(--margin-xs);
+  display: grid;
+  grid-template-rows: auto;
+  gap: 3px;
+}
+
+.tracker-row {
+  display: grid;
+  grid-template-columns: 1.5fr 3fr repeat(3, 1fr);
+  gap: 3px;
+  //align-items: center;
+  //height: 40px;
+}
+
+div.head > div {
+  background-color: var(--gold-darker);
+  padding-left:  var(--margin-xs);;
+}
+
+div.item > div {
+  background-color: var(--gold-lighter);
+  color: var(--gold-darker);
+  padding: var(--margin-xs);
+}
+
+.tracker-controls {
+  padding: var(--margin-xs);
+  display: flex;
+  justify-content: space-between
+}
