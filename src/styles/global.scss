@@ -92,4 +92,29 @@ p {
 
 main {
   background-color: var(--gold-darker);
+  padding: var(--margin-xs);
+}
+
+// Small devices
+@media (min-width: 600px) {
+  main {
+    padding: var(--margin-sm);
+    margin: 0 var(--margin-md);
+  }
+}
+
+// Medium devices
+@media (min-width: 768px) {
+  main {
+    padding: var(--margin-sm);
+    margin: 0 var(--margin-xl);
+  }
+}
+
+// Large devices
+@media (min-width: 992px) {
+  main {
+    padding: var(--margin-sm);
+    margin: 0 var(--margin-xl);
+  }
 }
