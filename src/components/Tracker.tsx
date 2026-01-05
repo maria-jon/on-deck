@@ -18,10 +18,29 @@ type Action =
   | { type: "REMOVE"; id: string }
 ;
 
+function createEmptyCharacter(): Character {
+  return {
+    id: crypto.randomUUID(),
+    name: "",
+    initiative: "",
+    hp: "",
+    ac: "",
+    type: "pc",
+    hasActed: false,
+  }
+}
+
+const initialCharacters = [
+  createEmptyCharacter(),
+  createEmptyCharacter(),
+  createEmptyCharacter(),
+  createEmptyCharacter(),
+];
+
 const initialState: TrackerState = {
   round: 1,
-  characters: [],
-  activeId: null,
+  characters: initialCharacters,
+  activeId: initialCharacters[0].id,
 };
 
 function reducer(state: TrackerState, action: Action): TrackerState {
