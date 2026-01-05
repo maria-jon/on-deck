@@ -1,3 +1,5 @@
+// -------------------- TRACKER GRID --------------------
+
 .tracker-wrapper {
 
   header {
@@ -39,6 +41,8 @@ div.item > div {
   display: flex;
   justify-content: space-between;
 }
+
+// -------------------- TRACKER INPUTS --------------------
 
 .row-cell {
   padding: var(--margin-xs);
@@ -91,4 +95,36 @@ input {
   background-color: var(--gold-darker);
   color: var(--gold-lighter);
   outline: 2px solid var(--blue-darker);
+}
+
+// -------------------- AUTOCOMPLETE --------------------
+
+.name-autocomplete {
+  position: relative;
+}
+
+.name-autocomplete__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  z-index: 10;
+  background: var(--gold-dark);
+}
+
+.name-autocomplete__item {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--gold-lighter);
+  font-family: "Jost", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1em;
+}
+
+.name-autocomplete__item:hover {
+  background: var(--gold-darker);
 }
