@@ -33,22 +33,6 @@ function createEmptyCharacter(): Character {
   }
 }
 
-/*
-const initialCharacters = [
-  createEmptyCharacter(),
-  createEmptyCharacter(),
-  createEmptyCharacter(),
-  createEmptyCharacter(),
-];
-
-
-const initialState: TrackerState = {
-  round: 1,
-  characters: initialCharacters,
-  activeId: initialCharacters[0].id,
-};
-*/
-
 function makeInitialState(): TrackerState {
   const characters = Array.from({ length: 4 }, () => createEmptyCharacter());
   return {
@@ -188,19 +172,10 @@ function reducer(state: TrackerState, action: Action): TrackerState {
   }
 }
 
-
 export default function Tracker() {
   const [state, dispatch] = useReducer(reducer, undefined, makeInitialState);
   const [monsterIndex, setMonsterIndex] = useState<MonsterListItem[]>([]);
   const [monsterError, setMonsterError] = useState<string | null>(null);
-
-  /*
-  function toNumberOrEmpty(value: string) {
-    if (value.trim() === "") return "";
-    const n = Number(value);
-    return Number.isNaN(n) ? "" : n;
-  }
-  */
 
   async function pickMonsterForRow(rowId: string, monsterIdx: string) {
     try {
@@ -208,7 +183,6 @@ export default function Tracker() {
   
       const hp = monster.hit_points;
   
-      // armor_class can be an array of objects (often { value: number, ... })
       const ac =
         monster.armor_class?.[0]?.value ??
         monster.armor_class?.[0] ??
@@ -231,7 +205,6 @@ export default function Tracker() {
     }
   }
 
-
   useEffect(() => {
     let cancelled = false;
   
@@ -248,7 +221,6 @@ export default function Tracker() {
       cancelled = true;
     };
   }, []);
-
 
   return (
   <div className="tracker-wrapper">
@@ -277,76 +249,6 @@ export default function Tracker() {
           monsterIndex={monsterIndex}
           onPickMonster={pickMonsterForRow}
         />
-        /*
-        <div
-          key={c.id}
-          className={`tracker-row item row ${c.hasActed ? "row--acted" : ""} ${
-            c.id === state.activeId ? "row--active" : ""
-          }`}
-        >
-          <input 
-            className="input-initiative row-cell"
-            name="initiative"
-            value={c.initiative}
-            onChange={(e) =>
-              dispatch({
-                type: "UPDATE",
-                id: c.id,
-                patch: { initiative: toNumberOrEmpty(e.target.value) },
-              })
-            }
-          />
-          <input 
-            className="input-name row-cell"
-            name="name"
-            value={c.name}
-            onChange={(e) =>
-              dispatch({
-                type: "UPDATE",
-                id: c.id,
-                patch: { name: e.target.value },
-              })
-            }
-          />
-          <input 
-            className="input-hp row-cell"
-            name="hp"
-            value={c.hp}
-            onChange={(e) =>
-              dispatch({
-                type: "UPDATE",
-                id: c.id,
-                patch: { hp: toNumberOrEmpty(e.target.value) },
-              })
-            }
-          />
-          <input 
-            className="input-ac row-cell"
-            name="ac"
-            value={c.ac}
-            onChange={(e) =>
-              dispatch({
-                type: "UPDATE",
-                id: c.id,
-                patch: { ac: toNumberOrEmpty(e.target.value) },
-              })
-            }
-          />
-          <div className="row-edit row-cell">
-            <button
-              type="button"
-              onClick={() => {
-                if (confirm(`Remove ${c.name || "this character"}?`)) {
-                  dispatch({ type: "REMOVE", id: c.id });
-                }
-              }}
-              aria-label={`Remove ${c.name || "character"}`}
-            >
-              x
-            </button>
-          </div>
-        </div>
-        */
       ))}
     </div>
 
