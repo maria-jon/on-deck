@@ -39,3 +39,16 @@ div.item > div {
   display: flex;
   justify-content: space-between
 }
+
+.row--acted {
+  opacity: 0.5;
+}
+
+.row--acted input[name="name"] {
+  text-decoration: line-through;
+}
+
+.row--active {
+  outline: 2px solid red;
+  outline-offset: 4px;
+}
