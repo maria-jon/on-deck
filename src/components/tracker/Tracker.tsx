@@ -1,7 +1,10 @@
-import { useState, useReducer } from "react";
-import "../styles/Tracker.scss";
+import { useState, useReducer, useEffect } from "react";
+import "../../styles/Tracker.scss";
 
-import { type Character } from "../types/characters";
+import { type Character } from "../../types/characters";
+import { type MonsterListItem } from "./NameAutocomplete";
+import { fetchMonsterIndex, fetchMonsterByIndex } from "../../lib/dnd5e/client"
+import TrackerRow from "./TrackerRow";
 
 type TrackerState = {
   round: number;
@@ -30,6 +33,7 @@ function createEmptyCharacter(): Character {
   }
 }
 
+/*
 const initialCharacters = [
   createEmptyCharacter(),
   createEmptyCharacter(),
@@ -37,11 +41,22 @@ const initialCharacters = [
   createEmptyCharacter(),
 ];
 
+
 const initialState: TrackerState = {
   round: 1,
   characters: initialCharacters,
   activeId: initialCharacters[0].id,
 };
+*/
+
+function makeInitialState(): TrackerState {
+  const characters = Array.from({ length: 4 }, () => createEmptyCharacter());
+  return {
+    round: 1,
+    characters,
+    activeId: characters[0]?.id ?? null,
+  }
+}
 
 function reducer(state: TrackerState, action: Action): TrackerState {
   switch (action.type) {
@@ -173,14 +188,67 @@ function reducer(state: TrackerState, action: Action): TrackerState {
   }
 }
 
+
 export default function Tracker() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  
+  const [state, dispatch] = useReducer(reducer, undefined, makeInitialState);
+  const [monsterIndex, setMonsterIndex] = useState<MonsterListItem[]>([]);
+  const [monsterError, setMonsterError] = useState<string | null>(null);
+
+  /*
   function toNumberOrEmpty(value: string) {
     if (value.trim() === "") return "";
     const n = Number(value);
     return Number.isNaN(n) ? "" : n;
   }
+  */
+
+  async function pickMonsterForRow(rowId: string, monsterIdx: string) {
+    try {
+      const monster = await fetchMonsterByIndex(monsterIdx);
+  
+      const hp = monster.hit_points;
+  
+      // armor_class can be an array of objects (often { value: number, ... })
+      const ac =
+        monster.armor_class?.[0]?.value ??
+        monster.armor_class?.[0] ??
+        "";
+  
+      dispatch({
+        type: "UPDATE",
+        id: rowId,
+        patch: {
+          name: monster.name,
+          hp,
+          ac,
+          type: "monster",
+          // initiative: leave blank or set later (dex mod / roll)
+        },
+      });
+    } catch (e) {
+      // optional: show a toast / inline message
+      console.error("Failed to fetch monster", e);
+    }
+  }
+
+
+  useEffect(() => {
+    let cancelled = false;
+  
+    (async () => {
+      try {
+        const data = await fetchMonsterIndex(); // should return { results: [...] }
+        if (!cancelled) setMonsterIndex(data.results ?? []);
+      } catch (e) {
+        if (!cancelled) setMonsterError("Could not load monster list");
+      }
+    })();
+  
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
 
   return (
   <div className="tracker-wrapper">
@@ -201,6 +269,15 @@ export default function Tracker() {
         <div className="row-edit">Edit</div>
       </div>
       {state.characters.map((c) => (
+        <TrackerRow
+          key={c.id}
+          character={c}
+          isActive={c.id === state.activeId}
+          dispatch={dispatch}
+          monsterIndex={monsterIndex}
+          onPickMonster={pickMonsterForRow}
+        />
+        /*
         <div
           key={c.id}
           className={`tracker-row item row ${c.hasActed ? "row--acted" : ""} ${
@@ -269,6 +346,7 @@ export default function Tracker() {
             </button>
           </div>
         </div>
+        */
       ))}
     </div>
 
