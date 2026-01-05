@@ -15,6 +15,7 @@ type Action =
   | { type: "SORT" }
   | { type: "NEXT" }
   | { type: "RESET_ROUND" }
+  | { type: "REMOVE"; id: string }
 ;
 
 const initialState: TrackerState = {
@@ -112,6 +113,42 @@ function reducer(state: TrackerState, action: Action): TrackerState {
       return { ...state, characters: updated, activeId: nextActiveId };
     }
 
+    case "REMOVE": {
+      const filtered = state.characters.filter((c) => c.id !== action.id);
+
+      // If list is empty after removal
+      if (filtered.length === 0) {
+        return {
+          ...state,
+          characters: [],
+          activeId: null,
+        };
+      }
+      
+      // If removed character was NOT the active one, keep activeId
+      if (state.activeId !== action.id) {
+        return {
+          ...state,
+          characters: filtered,
+        };
+      }
+
+      // If removed character WAS active -> 
+      // move to next character in list or fallback to first
+      const removedIndex = state.characters.findIndex(
+        (c) => c.id === action.id
+      );
+
+      const nextIndex = 
+      removedIndex >= filtered.length ? 0 : removedIndex;
+
+      return {
+        ...state,
+        characters: filtered,
+        activeId: filtered[nextIndex]?.id ?? null,
+      };
+    }
+
     default:
       return state;
   }
@@ -202,6 +239,19 @@ export default function Tracker() {
               })
             }
           />
+          <div className="row-edit">
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm(`Remove ${c.name || "this character"}?`)) {
+                  dispatch({ type: "REMOVE", id: c.id });
+                }
+              }}
+              aria-label={`Remove ${c.name || "character"}`}
+            >
+              x
+            </button>
+          </div>
         </div>
       ))}
     </div>
