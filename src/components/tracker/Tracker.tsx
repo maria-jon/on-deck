@@ -1,7 +1,7 @@
 import { useState, useReducer } from "react";
-import "../styles/Tracker.scss";
+import "../../styles/Tracker.scss";
 
-import { type Character } from "../types/characters";
+import { type Character } from "../../types/characters";
 
 type TrackerState = {
   round: number;
