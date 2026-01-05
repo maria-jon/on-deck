@@ -181,13 +181,6 @@ export default function Tracker() {
         <div className="row-ac">AC</div>
         <div className="row-edit">Edit</div>
       </div>
-      <div className="tracker-row item">
-        <div className="row-initiative">Initiative</div>
-        <div className="row-name">Name</div>
-        <div className="row-hp">HP</div>
-        <div className="row-ac">AC</div>
-        <div className="row-edit">Edit</div>
-      </div>
       {state.characters.map((c) => (
         <div
           key={c.id}
@@ -196,6 +189,7 @@ export default function Tracker() {
           }`}
         >
           <input 
+            className="input-initiative row-cell"
             name="initiative"
             value={c.initiative}
             onChange={(e) =>
@@ -207,6 +201,7 @@ export default function Tracker() {
             }
           />
           <input 
+            className="input-name row-cell"
             name="name"
             value={c.name}
             onChange={(e) =>
@@ -218,6 +213,7 @@ export default function Tracker() {
             }
           />
           <input 
+            className="input-hp row-cell"
             name="hp"
             value={c.hp}
             onChange={(e) =>
@@ -229,6 +225,7 @@ export default function Tracker() {
             }
           />
           <input 
+            className="input-ac row-cell"
             name="ac"
             value={c.ac}
             onChange={(e) =>
@@ -239,7 +236,7 @@ export default function Tracker() {
               })
             }
           />
-          <div className="row-edit">
+          <div className="row-edit row-cell">
             <button
               type="button"
               onClick={() => {
