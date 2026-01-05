@@ -77,7 +77,7 @@ export default function NameAutocomplete({
   }
 
   return (
-    <div className="name-autocomplete">
+    <div className="name-autocomplete row-cell">
       <input
         ref={inputRef}
         name="name"
