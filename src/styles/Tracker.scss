@@ -17,7 +17,7 @@
 
 .tracker-row {
   display: grid;
-  grid-template-columns: 1.5fr 3fr repeat(3, 1fr);
+  grid-template-columns: 3fr 6fr repeat(2, 2fr) 1fr;
   gap: 3px;
   //align-items: center;
   //height: 40px;
@@ -25,7 +25,7 @@
 
 div.head > div {
   background-color: var(--gold-darker);
-  padding-left:  var(--margin-xs);;
+  padding-left: var(--margin-xs);
 }
 
 div.item > div {
@@ -37,5 +37,58 @@ div.item > div {
 .tracker-controls {
   padding: var(--margin-xs);
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+}
+
+.row-cell {
+  padding: var(--margin-xs);
+  width: 100%;
+  background-color: var(--gold-lighter);
+  color: var(--gold-darker);
+  border: none;
+}
+
+input {
+  font-family: "Jost", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.row--acted .row-cell {
+  background-color: var(--gold-darker);
+  color: var(--gold-lighter);
+}
+
+.row--acted input[name="name"] {
+  text-decoration: line-through;
+}
+
+.row--active input[name="initiative"] {
+  background-image: url('src/assets/icons/chevron_right_gold_darker.svg');
+  background-position: 3px 6px;
+  background-repeat: no-repeat;
+  padding-left: 24px;
+}
+
+.row-cell input:focus {
+  background-color: var(--gold-lighter);
+  color: var(--gold-darker);
+  outline: 2px solid var(--blue-darker);
+}
+
+.row--acted .row-cell input:focus {
+  background-color: var(--gold-darker);
+  color: var(--gold-lighter);
+  outline: 2px solid var(--blue-darker);
+}
+
+.row-cell input:-internal-autofill-selected {
+  background-color: var(--gold-lighter);
+  color: var(--gold-darker);
+  outline: 2px solid var(--blue-darker);
+}
+.row--acted .row-cell input:-internal-autofill-selected {
+  background-color: var(--gold-darker);
+  color: var(--gold-lighter);
+  outline: 2px solid var(--blue-darker);
 }

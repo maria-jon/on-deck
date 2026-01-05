@@ -1,47 +1,61 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import "../styles/Tracker.scss";
 
 import { type Character } from "../types/characters";
 
-export default function Tracker({
-  id: initialId,
-  name: initialName,
-  initiative: initialInitiative,
-  hp: initialHp,
-  ac: initialAc,
-  type: initialType,
-  hasActed: initialHasActed,
-}: {
-  id: number;
-  name: string;
-  initiative: number;
-  hp: number;
-  ac: number;
-  type: string;
-  hasActed: boolean;
-}) {
+type TrackerState = {
+  round: number;
+  characters: Character[];
+  activeId: string | null;
+};
 
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+type Action =
+  | { type: "ADD_NEW" }
+  | { type: "UPDATE"; id: string; patch: Partial<Character> }
+  | { type: "SORT" }
+  | { type: "NEXT" }
+  | { type: "RESET_ROUND" }
+  | { type: "REMOVE"; id: string }
+;
 
-  const [round, setRound] = useState<number>(1);
-  const addRound = () => setRound((i) => i + 1);
-
-  function toNumberOrEmpty(value: string) {
-    if (value.trim() === "") return "";
-    const n = Number(value);
-    return Number.isNaN(n) ? "" : n;
+function createEmptyCharacter(): Character {
+  return {
+    id: crypto.randomUUID(),
+    name: "",
+    initiative: "",
+    hp: "",
+    ac: "",
+    type: "pc",
+    hasActed: false,
   }
-  
-  function updateCharacter(id: string, patch: Partial<Character>) {
-    setCharacters(prev => prev.map(c => (c.id === id ? { ...c, ...patch } : c)));
-  }
+}
 
-  function addNew() {
-    console.log("click");
-    setCharacters(prev => [
-      ...prev,
-      {
+const initialCharacters = [
+  createEmptyCharacter(),
+  createEmptyCharacter(),
+  createEmptyCharacter(),
+  createEmptyCharacter(),
+];
+
+const initialState: TrackerState = {
+  round: 1,
+  characters: initialCharacters,
+  activeId: initialCharacters[0].id,
+};
+
+function reducer(state: TrackerState, action: Action): TrackerState {
+  switch (action.type) {
+    case "RESET_ROUND": {
+      return { 
+        ...state,
+        round: state.round + 1,
+        characters: state.characters.map((c) => ({ ...c, hasActed: false })),
+        // activeId
+      };
+    }
+
+    case "ADD_NEW": {
+      const newChar: Character = {
         id: crypto.randomUUID(),
         name: "",
         initiative: "",
@@ -49,14 +63,129 @@ export default function Tracker({
         ac: "",
         type: "pc",
         hasActed: false,
-      },
-    ]);
+      };
+
+      const nextCharacters = [...state.characters, newChar];
+      
+      // If this is the first character, make them active
+      const nextActiveId = state.activeId ?? newChar.id;
+
+      return { ...state, characters: nextCharacters, activeId: nextActiveId };
+    }
+
+    case "UPDATE": {
+      return {
+        ...state,
+        characters: state.characters.map((c) => 
+          c.id === action.id ? { ...c, ...action.patch } : c
+        ),
+      };
+    }
+
+    case "SORT":{
+      const sorted = [...state.characters].sort(
+        (a, b) => (Number(b.initiative) || 0) - (Number(a.initiative) || 0)        
+      );
+
+      const reset = sorted.map((c) => ({ ...c, hasActed: false }));
+
+      // After sorting, set active to first item (or null if list empty)
+      return {
+        ...state,
+        characters: reset,
+        activeId: reset[0]?.id ?? null,
+      };
+    }
+
+    case "NEXT": {
+      const list = state.characters;
+      if (list.length === 0) return state;
+
+      const currentIndex = state.activeId
+        ? list.findIndex((c) => c.id === state.activeId)
+        : 0;
+
+      const safeIndex = currentIndex === -1 ? 0 : currentIndex;
+      const current = list[safeIndex];
+
+      // 1) mark current as acted
+      const updated = list.map((c) =>
+        c.id === current.id ? { ...c, hasActed: true } : c
+      );
+
+      // 2) compute next active (move forward in the updated order)
+      const nextIndex = (safeIndex + 1) % updated.length;
+      const nextActiveId = updated[nextIndex]?.id ?? null;
+
+      // 3) if everyone has acted, new round + reset hasActed
+      const allActed = updated.length > 0 && updated.every((c) => c.hasActed);
+      if (allActed) {
+        const resetForNewRound = updated.map((c) => ({ ...c, hasActed: false }));
+        return {
+          ...state,
+          round: state.round + 1,
+          characters: resetForNewRound,
+          activeId: resetForNewRound[0]?.id ?? null,
+        };
+      }
+
+      return { ...state, characters: updated, activeId: nextActiveId };
+    }
+
+    case "REMOVE": {
+      const filtered = state.characters.filter((c) => c.id !== action.id);
+
+      // If list is empty after removal
+      if (filtered.length === 0) {
+        return {
+          ...state,
+          characters: [],
+          activeId: null,
+        };
+      }
+      
+      // If removed character was NOT the active one, keep activeId
+      if (state.activeId !== action.id) {
+        return {
+          ...state,
+          characters: filtered,
+        };
+      }
+
+      // If removed character WAS active -> 
+      // move to next character in list or fallback to first
+      const removedIndex = state.characters.findIndex(
+        (c) => c.id === action.id
+      );
+
+      const nextIndex = 
+      removedIndex >= filtered.length ? 0 : removedIndex;
+
+      return {
+        ...state,
+        characters: filtered,
+        activeId: filtered[nextIndex]?.id ?? null,
+      };
+    }
+
+    default:
+      return state;
+  }
+}
+
+export default function Tracker() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  
+  function toNumberOrEmpty(value: string) {
+    if (value.trim() === "") return "";
+    const n = Number(value);
+    return Number.isNaN(n) ? "" : n;
   }
 
   return (
   <div className="tracker-wrapper">
     <header>
-      <h2>Round {round}</h2>
+      <h2>Round {state.round}</h2>
       <div>
         Time: 14m 30s 
         <span> (button)</span>
@@ -71,45 +200,89 @@ export default function Tracker({
         <div className="row-ac">AC</div>
         <div className="row-edit">Edit</div>
       </div>
-      <div className="tracker-row item">
-        <div className="row-initiative">Initiative</div>
-        <div className="row-name">Name</div>
-        <div className="row-hp">HP</div>
-        <div className="row-ac">AC</div>
-        <div className="row-edit">Edit</div>
-      </div>
-      {characters.map((c, index) => (
+      {state.characters.map((c) => (
         <div
           key={c.id}
-          className={`tracker-row item row ${c.hasActed ? "row--acted" : ""} ${index === activeIndex ? "row--active" : ""}`}
+          className={`tracker-row item row ${c.hasActed ? "row--acted" : ""} ${
+            c.id === state.activeId ? "row--active" : ""
+          }`}
         >
           <input 
+            className="input-initiative row-cell"
+            name="initiative"
             value={c.initiative}
-            onChange={(e) => updateCharacter(c.id, { initiative: toNumberOrEmpty(e.target.value) })}
+            onChange={(e) =>
+              dispatch({
+                type: "UPDATE",
+                id: c.id,
+                patch: { initiative: toNumberOrEmpty(e.target.value) },
+              })
+            }
           />
           <input 
+            className="input-name row-cell"
+            name="name"
             value={c.name}
-            onChange={(e) => updateCharacter(c.id, { name: e.target.value })}
+            onChange={(e) =>
+              dispatch({
+                type: "UPDATE",
+                id: c.id,
+                patch: { name: e.target.value },
+              })
+            }
           />
           <input 
+            className="input-hp row-cell"
+            name="hp"
             value={c.hp}
-            onChange={(e) => updateCharacter(c.id, { hp: toNumberOrEmpty(e.target.value) })}
+            onChange={(e) =>
+              dispatch({
+                type: "UPDATE",
+                id: c.id,
+                patch: { hp: toNumberOrEmpty(e.target.value) },
+              })
+            }
           />
           <input 
+            className="input-ac row-cell"
+            name="ac"
             value={c.ac}
-            onChange={(e) => updateCharacter(c.id, { ac: toNumberOrEmpty(e.target.value) })}
+            onChange={(e) =>
+              dispatch({
+                type: "UPDATE",
+                id: c.id,
+                patch: { ac: toNumberOrEmpty(e.target.value) },
+              })
+            }
           />
+          <div className="row-edit row-cell">
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm(`Remove ${c.name || "this character"}?`)) {
+                  dispatch({ type: "REMOVE", id: c.id });
+                }
+              }}
+              aria-label={`Remove ${c.name || "character"}`}
+            >
+              x
+            </button>
+          </div>
         </div>
       ))}
     </div>
 
     <div className="tracker-controls">
-      <div className="control-buttons">
-        <button>Next</button>
-        <button>Sort</button>
-      </div>
-      <button onClick={addRound}>New round</button>
-      <button onClick={addNew}>Add new</button>
+    <div className="control-buttons">
+          <button onClick={() => dispatch({ type: "NEXT" })}>Next</button>
+          <button onClick={() => dispatch({ type: "SORT" })}>Sort</button>
+        </div>
+
+        <button onClick={() => dispatch({ type: "RESET_ROUND" })}>
+          New round
+        </button>
+
+        <button onClick={() => dispatch({ type: "ADD_NEW" })}>Add new</button>
     </div>
   </div>
   )
