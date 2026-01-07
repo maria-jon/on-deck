@@ -129,3 +129,39 @@ input {
 .name-autocomplete__item:hover {
   background: var(--gold-darker);
 }
+
+// -------------------- HP INPUT --------------------
+
+.health-input {
+  position: relative;
+}
+
+.health-input__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  z-index: 10;
+  background: var(--gold-dark);
+}
+
+.health-input__item {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--gold-lighter);
+  font-family: "Jost", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1em;
+}
+
+.health-input__item:hover {
+  background: var(--gold-darker);
+}
+
+.hp-modifier {
+  width: 100%;
+}
