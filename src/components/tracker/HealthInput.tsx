@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toNumberOrEmpty from "../utils/toNumberOrEmpty";
 
 type Props = {
@@ -16,6 +16,12 @@ export default function HealthInput({
   disabled = false,
 }: Props) {
   const [open, setOpen] = useState(false);
+
+  // Allows user to click outside of menu to close it
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // Allows autofocus on Modifier input when opening menu
+  const inputModifierRef = useRef<HTMLInputElement | null>(null);
 
   const hitPoints = value === "" ? 0 : value;
 
@@ -47,8 +53,33 @@ export default function HealthInput({
     setOpen(false);
   }
 
+  useEffect(() => {
+    if (!open) return;
+
+    function onPointerDown(e: PointerEvent) {
+      const el= wrapperRef.current;
+
+      if (!el) return;
+
+      // Close if user clicks outside of component
+      if (!el.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      inputModifierRef.current?.focus();
+      inputModifierRef.current?.select();
+    }
+  }, [open])
+
   return (
-    <div className="health-input row-cell">
+    <div ref={wrapperRef} className="health-input row-cell">
       <input
         name="hp"
         value={value}
@@ -67,6 +98,7 @@ export default function HealthInput({
       {open && options && (
         <div className="health-input__menu" role="listbox">
           <input 
+            ref={inputModifierRef}
             name="hp-modifier"
             type="number"
             className="hp-modifier"
