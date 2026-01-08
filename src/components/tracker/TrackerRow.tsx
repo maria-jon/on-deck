@@ -1,6 +1,8 @@
 import type { Dispatch } from "react";
 import type { Character } from "../../types/characters";
 import NameAutocomplete from "./NameAutocomplete";
+import HealthInput from "./HealthInput";
+import toNumberOrEmpty from "../utils/toNumberOrEmpty";
 
 type Action =
   | { type: "UPDATE"; id: string; patch: Partial<Character> }
@@ -15,12 +17,7 @@ type TrackerRowProps = {
 
   monsterIndex?: MonsterListItem[];
   onPickMonster?: (rowId: string, monsterIndex: string) => void;
-};
-
-function toNumberOrEmpty(value: string) {
-  if (value.trim() === "") return "";
-  const n = Number(value);
-  return Number.isNaN(n) ? "" : n;
+  onHpChange?: (rowId: string) => void;
 };
 
 export default function TrackerRow ({
@@ -62,16 +59,13 @@ export default function TrackerRow ({
         items={monsterIndex ?? []}
         onPick={(monsterIdx) => onPickMonster?.(character.id, monsterIdx)}
       />
-      <input 
-        className="input-hp row-cell"
-        name="hp"
+      <HealthInput 
         value={character.hp}
-        onChange={(e) =>
-          dispatch({
-            type: "UPDATE",
-            id: character.id,
-            patch: { hp: toNumberOrEmpty(e.target.value) },
-          })
+        onTyped={(hp) => 
+          dispatch({ type: "UPDATE", id: character.id, patch: { hp } })
+        }
+        onHpChange={(hp) => 
+          dispatch({ type: "UPDATE", id: character.id, patch: { hp } })
         }
       />
       <input 
