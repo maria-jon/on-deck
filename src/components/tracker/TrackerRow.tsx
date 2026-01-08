@@ -2,6 +2,7 @@ import type { Dispatch } from "react";
 import type { Character } from "../../types/characters";
 import NameAutocomplete from "./NameAutocomplete";
 import HealthInput from "./HealthInput";
+import toNumberOrEmpty from "../utils/toNumberOrEmpty";
 
 type Action =
   | { type: "UPDATE"; id: string; patch: Partial<Character> }
@@ -17,12 +18,6 @@ type TrackerRowProps = {
   monsterIndex?: MonsterListItem[];
   onPickMonster?: (rowId: string, monsterIndex: string) => void;
   onHpChange?: (rowId: string) => void;
-};
-
-function toNumberOrEmpty(value: string) {
-  if (value.trim() === "") return "";
-  const n = Number(value);
-  return Number.isNaN(n) ? "" : n;
 };
 
 export default function TrackerRow ({
