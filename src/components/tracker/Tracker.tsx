@@ -238,7 +238,7 @@ export default function Tracker() {
         <div className="row-name">Name</div>
         <div className="row-hp">HP</div>
         <div className="row-ac">AC</div>
-        <div className="row-edit">Edit</div>
+        <div className="row-edit"></div>
       </div>
       {state.characters.map((c) => (
         <TrackerRow

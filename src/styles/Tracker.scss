@@ -1,7 +1,6 @@
 // -------------------- TRACKER GRID --------------------
 
 .tracker-wrapper {
-
   header {
     display: flex;
     justify-content: space-between;
@@ -19,15 +18,19 @@
 
 .tracker-row {
   display: grid;
-  grid-template-columns: 3fr 6fr repeat(2, 2fr) 1fr;
+  grid-template-columns: 3fr 4fr 2.5fr 2fr 1.5fr;
   gap: 3px;
-  //align-items: center;
-  //height: 40px;
+}
+
+.head {
+  .row-edit {
+    min-width: 23px;
+  }
 }
 
 div.head > div {
   background-color: var(--gold-darker);
-  padding-left: var(--margin-xs);
+  padding: var(--margin-xs);
 }
 
 div.item > div {
@@ -164,4 +167,20 @@ input {
 
 .hp-modifier {
   width: 100%;
+}
+
+// -------------------- RESPONSIVE STYLING --------------------
+
+@media (min-width: 600px) {
+  .tracker-row {
+    grid-template-columns: 3fr 6fr repeat(2, 2fr) 1fr;
+  }
+
+  .health-input {
+    display: flex;
+  }
+
+  .input-hp {
+    width: 50%;
+  }
 }
