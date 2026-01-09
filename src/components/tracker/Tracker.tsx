@@ -3,9 +3,10 @@ import "../../styles/Tracker.scss";
 
 import { type Character } from "../../types/characters";
 import { type MonsterListItem } from "./NameAutocomplete";
-import { fetchMonsterIndex, fetchMonsterByIndex } from "../../lib/dnd5e/client"
+import { fetchMonsterIndex, fetchMonsterByIndex } from "../../lib/dnd5e/client";
 import TrackerRow from "./TrackerRow";
 import Stopwatch from "../Stopwatch";
+import { NextIcon, SortIcon, AddNewIcon, NewRoundIcon } from "../utils/IconSVGs";
 
 type TrackerState = {
   round: number;
@@ -252,15 +253,49 @@ export default function Tracker() {
 
     <div className="tracker-controls">
     <div className="control-buttons">
-          <button onClick={() => dispatch({ type: "NEXT" })}>Next</button>
-          <button onClick={() => dispatch({ type: "SORT" })}>Sort</button>
+          <button 
+            onClick={() => dispatch({ type: "NEXT" })}
+            className="button-icon"
+          >
+            <NextIcon 
+              size={24}
+              ariaHidden={true}
+            />
+            Next
+          </button>
+          <button 
+            onClick={() => dispatch({ type: "SORT" })}
+            className="button-icon"
+          >
+            <SortIcon
+              size={24}
+              ariaHidden={true}
+            />
+            Sort
+          </button>
         </div>
 
-        <button onClick={() => dispatch({ type: "RESET_ROUND" })}>
+        <button 
+          onClick={() => dispatch({ type: "RESET_ROUND" })}
+          className="button-icon"
+        >
+          <NewRoundIcon 
+            size={24}
+            ariaHidden={true}
+          />
           New round
         </button>
 
-        <button onClick={() => dispatch({ type: "ADD_NEW" })}>Add new</button>
+        <button 
+          onClick={() => dispatch({ type: "ADD_NEW" })}
+          className="button-icon"
+        >
+          <AddNewIcon 
+            size={24}
+            ariaHidden={true}
+          />
+          Add new
+        </button>
     </div>
   </div>
   )
