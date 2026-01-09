@@ -201,6 +201,16 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.button-icon {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+
+  svg {
+    align-self: center;
+  }
+}
+
 // -------------------- RESPONSIVE LAYOUT --------------------
 
 main {
