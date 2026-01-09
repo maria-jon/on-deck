@@ -90,6 +90,44 @@ p {
   font-size: 0.75em;
 }
 
+button {
+  padding: var(--margin-xs) var(--margin-sm);
+  border: 1px solid transparent;
+  border-radius: var(--margin-sm);
+  background-color: var(--gold-light);
+  color: var(--gold-darker);
+
+  svg {
+    fill: var(--gold-darker);
+  }
+}
+
+button:hover {
+  background-color: var(--gold-dark);
+  color: var(--gold-lighter);
+  cursor: pointer;
+
+  svg {
+    fill: var(--gold-lighter);
+  }
+}
+
+button:active {
+  background-color: var(--gold-darker);
+  color: var(--gold-lighter);
+  cursor: pointer;
+  border: 1px solid var(--gold);
+
+  svg {
+    fill: var(--gold-lighter);
+  }
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 main {
   background-color: var(--gold-darker);
   padding: var(--margin-xs);
