@@ -45,9 +45,14 @@ div.item > div {
 }
 
 .tracker-controls {
-  padding: var(--margin-xs);
+  padding-top: var(--margin-sm);
   display: flex;
   justify-content: space-between;
+}
+
+.control-buttons {
+  display: flex;
+  gap: var(--margin-sm)
 }
 
 // -------------------- TRACKER INPUTS --------------------
