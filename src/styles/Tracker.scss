@@ -197,6 +197,10 @@ input {
 .stopwatch__controls {
   display: flex;
   gap: var(--margin-xs);
+
+  button {
+    display: flex;
+  }
 }
 
 // -------------------- RESPONSIVE STYLING --------------------
