@@ -90,23 +90,22 @@ export default function Stopwatch({ autoStart = false, tickMs = 250 }: Props) {
           onClick={reset} 
           disabled={liveElapsed === 0}
           aria-label="Reset timer"
+          className="button-warning"
         >
           <TimerResetIcon 
             size={24}
             fill="#3D340D"
           />
         </button>
-        
+
         <button 
           type="button" 
           onClick={toggleRunning}
           aria-label="Toggle timer"
         >
-          <span>
-            {isRunning ? <TimerPauseIcon size={24} fill="#3D340D" /> 
-              : <TimerStartIcon size={24} fill="#3D340D" />
-            }
-          </span>
+          {isRunning ? <TimerPauseIcon size={24} fill="#3D340D" /> 
+            : <TimerStartIcon size={24} fill="#3D340D" />
+          }
         </button>
       </div>
     </div>
