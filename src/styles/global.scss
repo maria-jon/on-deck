@@ -164,6 +164,39 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.button-warning {
+  background-color: var(--brown-light);
+  color: var(--brown-dark);
+
+  svg {
+    fill: var(--brown-dark);
+  }
+}
+
+.button-warning:hover {
+  background-color: var(--brown-dark);
+  color: var(--brown-light);
+
+  svg {
+    fill: var(--brown-light);
+  }
+}
+
+.button-warning:active {
+  background-color: var(--brown-dark);
+  color: var(--brown-light);
+  border: 1px solid var(--brown-light);
+
+  svg {
+    fill: var(--brown-light);
+  }
+}
+
+.button-warning:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 // -------------------- RESPONSIVE LAYOUT --------------------
 
 main {
