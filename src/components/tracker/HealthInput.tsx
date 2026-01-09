@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import toNumberOrEmpty from "../utils/toNumberOrEmpty";
-import { PlusMinusIcon } from "../utils/IconSVGs";
+import { PlusMinusIcon, HeartPlusIcon, HeartMinusIcon } from "../utils/IconSVGs";
 
 type Props = {
   value: number | "";                     // Current text in the input from parent
@@ -29,8 +29,8 @@ export default function HealthInput({
   const [hpModifier, setHpModifier] = useState<number | "">("");
 
   const options = [
-    { name: "Heal" }, 
-    { name: "Damage" }
+    { name: "Heal", icon: "plus" }, 
+    { name: "Damage", icon: "minus" }
   ];
   
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -114,13 +114,17 @@ export default function HealthInput({
             <button
               key={h.name}
               type="button"
-              className="health-input__item"
+              className={`health-input__item ${h.icon}`}
               onMouseDown={(e) => {
                 e.preventDefault();
               }}
               onClick={() => handleHpChange(h.name)}
               role="option"
             >
+              {h.icon === "plus" 
+                ? <HeartPlusIcon size={24} ariaHidden={true} />
+                  : <HeartMinusIcon size={24} ariaHidden={true} />
+              }
               {h.name}
             </button>
           ))}

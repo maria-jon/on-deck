@@ -177,6 +177,17 @@ input {
   color: var(--gold-lighter);
   font-family: "Jost", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1em;
+  font-weight: 400;
+  display: flex;
+  gap: var(--margin-xs);
+}
+
+button.plus svg {
+  fill: var(--green-light);
+}
+
+button.minus svg {
+  fill: var(--brown-light);
 }
 
 .health-input__item:hover {
