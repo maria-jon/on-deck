@@ -1,3 +1,5 @@
+// -------------------- VARIABLES --------------------
+
 * {
 	box-sizing: border-box;
 }
@@ -33,12 +35,11 @@
 
 	--radius-sm: 0.75em; 
   --radius-md: 1.125em;
-
 }
 
+// -------------------- TYPOGRAPHY --------------------
 body {
   margin: 0;
-
   font-family: "Jost", Tahoma, Geneva, Verdana, sans-serif;
   text-align: left;
   font-size: 1em;
@@ -90,6 +91,8 @@ p {
   font-size: 0.75em;
 }
 
+// -------------------- BUTTONS --------------------
+
 button {
   padding: var(--margin-xs) var(--margin-sm);
   border: 1px solid transparent;
@@ -114,12 +117,12 @@ button:hover {
 
 button:active {
   background-color: var(--gold-darker);
-  color: var(--gold-lighter);
+  color: var(--gold-light);
   cursor: pointer;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--gold-light);
 
   svg {
-    fill: var(--gold-lighter);
+    fill: var(--gold-light);
   }
 }
 
@@ -127,6 +130,41 @@ button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.button-dark {
+  background-color: var(--gold-darker);
+  color: var(--gold-light);
+
+  svg {
+    fill: var(--gold-light);
+  }
+}
+
+.button-dark:hover {
+  background-color: var(--gold-dark);
+  color: var(--gold-lighter);
+
+  svg {
+    fill: var(--gold-lighter);
+  }
+}
+
+.button-dark:active {
+  background-color: var(--gold);
+  color: var(--gold-darker);
+  border: 1px solid var(--gold-darker);
+
+  svg {
+    fill: var(--gold-darker);
+  }
+}
+
+.button-dark:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+// -------------------- RESPONSIVE LAYOUT --------------------
 
 main {
   background-color: var(--gold-darker);
