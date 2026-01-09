@@ -5,6 +5,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 1em 0;
+
+    h2 {
+      margin: 0;
+    }
   }
 }
 
@@ -167,6 +172,23 @@ input {
 
 .hp-modifier {
   width: 100%;
+}
+
+// -------------------- STOPWATCH --------------------
+
+.stopwatch {
+  display: flex;
+  align-items: center;
+  gap: var(--margin-sm);
+}
+
+.stopwatch__time {
+  font-variant-numeric: tabular-nums; 
+}
+
+.stopwatch__controls {
+  display: flex;
+  gap: var(--margin-xs);
 }
 
 // -------------------- RESPONSIVE STYLING --------------------

@@ -5,6 +5,7 @@ import { type Character } from "../../types/characters";
 import { type MonsterListItem } from "./NameAutocomplete";
 import { fetchMonsterIndex, fetchMonsterByIndex } from "../../lib/dnd5e/client"
 import TrackerRow from "./TrackerRow";
+import Stopwatch from "../Stopwatch";
 
 type TrackerState = {
   round: number;
@@ -226,10 +227,7 @@ export default function Tracker() {
   <div className="tracker-wrapper">
     <header>
       <h2>Round {state.round}</h2>
-      <div>
-        Time: 14m 30s 
-        <span> (button)</span>
-      </div>
+      <Stopwatch />
     </header>
     
     <div className="tracker-container">
