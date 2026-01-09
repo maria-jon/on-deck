@@ -100,6 +100,10 @@ button {
   background-color: var(--gold-light);
   color: var(--gold-darker);
 
+  font-family: "Jost", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+
   svg {
     fill: var(--gold-darker);
   }
