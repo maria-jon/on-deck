@@ -95,6 +95,7 @@ export default function Stopwatch({ autoStart = false, tickMs = 250 }: Props) {
           <TimerResetIcon 
             size={24}
             fill="#3D340D"
+            ariaHidden={true}
           />
         </button>
 
@@ -103,8 +104,8 @@ export default function Stopwatch({ autoStart = false, tickMs = 250 }: Props) {
           onClick={toggleRunning}
           aria-label="Toggle timer"
         >
-          {isRunning ? <TimerPauseIcon size={24} fill="#3D340D" /> 
-            : <TimerStartIcon size={24} fill="#3D340D" />
+          {isRunning ? <TimerPauseIcon size={24} fill="#3D340D" ariaHidden={true} /> 
+            : <TimerStartIcon size={24} fill="#3D340D" ariaHidden={true} />
           }
         </button>
       </div>
