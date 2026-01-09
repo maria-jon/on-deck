@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type SVGProps } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { TimerPauseIcon, TimerResetIcon, TimerStartIcon } from "./utils/IconSVGs";
 
@@ -21,8 +21,8 @@ function formatTime(ms: number) {
 
   // Show hours only when needed 
   return hours > 0
-    ? `${hours}:${pad2(minutes)}:${pad2(seconds)}`
-    : `${minutes}:${pad2(seconds)}`;
+    ? `${hours}h ${pad2(minutes)}m ${pad2(seconds)}s`
+    : `${minutes}m ${pad2(seconds)}s`;
 }
 
 export default function Stopwatch({ autoStart = false, tickMs = 250 }: Props) {
