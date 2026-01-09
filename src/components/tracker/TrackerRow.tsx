@@ -3,6 +3,7 @@ import type { Character } from "../../types/characters";
 import NameAutocomplete from "./NameAutocomplete";
 import HealthInput from "./HealthInput";
 import toNumberOrEmpty from "../utils/toNumberOrEmpty";
+import { DeleteIcon } from "../utils/IconSVGs";
 
 type Action =
   | { type: "UPDATE"; id: string; patch: Partial<Character> }
@@ -89,8 +90,12 @@ export default function TrackerRow ({
             }
           }}
           aria-label={`Remove ${character.name || "character"}`}
+          className="button-icon delete"
         >
-          x
+          <DeleteIcon 
+            size={24}
+            ariaHidden={true}
+          />
         </button>
       </div>
     </div>

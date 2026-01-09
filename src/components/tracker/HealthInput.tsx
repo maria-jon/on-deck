@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import toNumberOrEmpty from "../utils/toNumberOrEmpty";
+import { PlusMinusIcon } from "../utils/IconSVGs";
 
 type Props = {
   value: number | "";                     // Current text in the input from parent
@@ -91,8 +92,12 @@ export default function HealthInput({
 
       <button
         onClick={() => setOpen(o => !o)}
+        className="button-icon plus-minus"
       >
-        +/-
+        <PlusMinusIcon 
+            size={24}
+            ariaHidden={true}
+          />
       </button>
 
       {open && options && (
