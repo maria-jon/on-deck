@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type SVGProps } from "react";
+
+import { TimerPauseIcon, TimerResetIcon, TimerStartIcon } from "./utils/IconSVGs";
 
 type Props = {
   /** Optional: start running automatically */
@@ -83,12 +85,28 @@ export default function Stopwatch({ autoStart = false, tickMs = 250 }: Props) {
       </span>
 
       <div className="stopwatch__controls">
-        <button type="button" onClick={toggleRunning}>
-          {isRunning ? "Stop" : "Start"}
+      <button 
+          type="button" 
+          onClick={reset} 
+          disabled={liveElapsed === 0}
+          aria-label="Reset timer"
+        >
+          <TimerResetIcon 
+            size={24}
+            fill="#3D340D"
+          />
         </button>
-
-        <button type="button" onClick={reset} disabled={liveElapsed === 0}>
-          Reset
+        
+        <button 
+          type="button" 
+          onClick={toggleRunning}
+          aria-label="Toggle timer"
+        >
+          <span>
+            {isRunning ? <TimerPauseIcon size={24} fill="#3D340D" /> 
+              : <TimerStartIcon size={24} fill="#3D340D" />
+            }
+          </span>
         </button>
       </div>
     </div>
