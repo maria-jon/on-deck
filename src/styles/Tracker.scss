@@ -23,7 +23,7 @@
 
 .tracker-row {
   display: grid;
-  grid-template-columns: 3fr 4fr 2.5fr 2fr 1.5fr;
+  grid-template-columns: 2.5fr 3.5fr 3fr 1.5fr 1.5fr;
   gap: 3px;
 }
 
@@ -111,6 +111,12 @@ input {
   outline: 2px solid var(--blue-darker);
 }
 
+.row-edit .delete {
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+}
+
 // -------------------- AUTOCOMPLETE --------------------
 
 .name-autocomplete {
@@ -147,6 +153,8 @@ input {
 
 .health-input {
   position: relative;
+  display: flex;
+  gap: var(--margin-xs);
 }
 
 .health-input__menu {
@@ -177,6 +185,15 @@ input {
 
 .hp-modifier {
   width: 100%;
+}
+
+.input-hp {
+  min-width: 40%;
+}
+
+.health-input .plus-minus {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 // -------------------- STOPWATCH --------------------
@@ -212,15 +229,7 @@ input {
 
 @media (min-width: 600px) {
   .tracker-row {
-    grid-template-columns: 3fr 6fr repeat(2, 2fr) 1fr;
-  }
-
-  .health-input {
-    display: flex;
-  }
-
-  .input-hp {
-    width: 50%;
+    grid-template-columns: 3fr 6fr 2.5fr 1.5fr 1.5fr;
   }
 
   .stopwatch {
@@ -229,5 +238,15 @@ input {
 
   .stopwatch__time {
     min-width: 90px;
+  }
+
+  .health-input .plus-minus {
+    width: 40%;
+  }
+}
+
+@media (min-width: 768px) {
+  .health-input .plus-minus {
+    width: 50%;
   }
 }
