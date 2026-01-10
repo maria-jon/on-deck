@@ -44,6 +44,7 @@ export default function TrackerRow ({
         className="input-initiative row-cell"
         name="initiative"
         value={character.initiative}
+        autoComplete="off"
         onChange={(e) =>
           dispatch({
             type: "UPDATE",
@@ -68,11 +69,13 @@ export default function TrackerRow ({
         onHpChange={(hp) => 
           dispatch({ type: "UPDATE", id: character.id, patch: { hp } })
         }
+        hasActed={character.hasActed}
       />
       <input 
         className="input-ac row-cell"
         name="ac"
         value={character.ac}
+        autoComplete="off"
         onChange={(e) =>
           dispatch({
             type: "UPDATE",
@@ -90,7 +93,9 @@ export default function TrackerRow ({
             }
           }}
           aria-label={`Remove ${character.name || "character"}`}
-          className="button-icon delete"
+          className={`button-icon delete 
+            ${character.hasActed ? "" : "button-dark"}`
+          }
         >
           <DeleteIcon 
             size={24}

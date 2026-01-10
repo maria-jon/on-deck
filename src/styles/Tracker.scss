@@ -60,8 +60,8 @@ div.item > div {
 .row-cell {
   padding: var(--margin-xs);
   width: 100%;
-  background-color: var(--gold-lighter);
-  color: var(--gold-darker);
+  background-color: var(--gold-lighter) !important;
+  color: var(--gold-darker) !important;
   border: none;
 }
 
@@ -72,8 +72,8 @@ input {
 }
 
 .row--acted .row-cell {
-  background-color: var(--gold-darker);
-  color: var(--gold-lighter);
+  background-color: var(--gold-darker) !important;
+  color: var(--gold-lighter) !important;
 }
 
 .row--acted input[name="name"] {
@@ -89,26 +89,13 @@ input {
 }
 
 .row-cell input:focus {
-  background-color: var(--gold-lighter);
-  color: var(--gold-darker);
-  outline: 2px solid var(--blue-darker);
+  background-color: var(--gold-lighter) !important;
+  color: var(--gold-darker) !important;
 }
 
 .row--acted .row-cell input:focus {
-  background-color: var(--gold-darker);
-  color: var(--gold-lighter);
-  outline: 2px solid var(--blue-darker);
-}
-
-.row-cell input:-internal-autofill-selected {
-  background-color: var(--gold-lighter);
-  color: var(--gold-darker);
-  outline: 2px solid var(--blue-darker);
-}
-.row--acted .row-cell input:-internal-autofill-selected {
-  background-color: var(--gold-darker);
-  color: var(--gold-lighter);
-  outline: 2px solid var(--blue-darker);
+  background-color: var(--gold-darker) !important;
+  color: var(--gold-lighter) !important;
 }
 
 .row-edit .delete {
@@ -148,6 +135,7 @@ input {
 
 .name-autocomplete__item:hover {
   background: var(--gold-darker);
+  border-radius: 0;
 }
 
 // -------------------- HP INPUT --------------------
@@ -193,6 +181,7 @@ button.minus svg {
 
 .health-input__item:hover {
   background: var(--gold-darker);
+  border-radius: 0;
 }
 
 .hp-modifier {

@@ -6,6 +6,7 @@ type Props = {
   value: number | "";                     // Current text in the input from parent
   onTyped: (next: number) => void;        // Call when user types
   onHpChange: (hp: number ) => void;      // Call when adjusting HP w/ modifier
+  hasActed: boolean;
 
   disabled?: boolean;
 };
@@ -14,6 +15,7 @@ export default function HealthInput({
   value,
   onTyped,
   onHpChange,
+  hasActed,
   disabled = false,
 }: Props) {
   const [open, setOpen] = useState(false);
@@ -92,7 +94,9 @@ export default function HealthInput({
 
       <button
         onClick={() => setOpen(o => !o)}
-        className="button-icon plus-minus"
+        className={`button-icon plus-minus 
+          ${hasActed ? "" : "button-dark"}`
+        }
       >
         <PlusMinusIcon 
             size={24}
