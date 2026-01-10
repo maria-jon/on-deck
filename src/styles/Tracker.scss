@@ -91,24 +91,20 @@ input {
 .row-cell input:focus {
   background-color: var(--gold-lighter);
   color: var(--gold-darker);
-  outline: 2px solid var(--blue-darker);
 }
 
 .row--acted .row-cell input:focus {
   background-color: var(--gold-darker);
   color: var(--gold-lighter);
-  outline: 2px solid var(--blue-darker);
 }
 
 .row-cell input:-internal-autofill-selected {
   background-color: var(--gold-lighter);
   color: var(--gold-darker);
-  outline: 2px solid var(--blue-darker);
 }
 .row--acted .row-cell input:-internal-autofill-selected {
   background-color: var(--gold-darker);
   color: var(--gold-lighter);
-  outline: 2px solid var(--blue-darker);
 }
 
 .row-edit .delete {
