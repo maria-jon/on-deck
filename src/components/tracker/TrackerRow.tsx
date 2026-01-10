@@ -44,6 +44,7 @@ export default function TrackerRow ({
         className="input-initiative row-cell"
         name="initiative"
         value={character.initiative}
+        autoComplete="off"
         onChange={(e) =>
           dispatch({
             type: "UPDATE",
@@ -74,6 +75,7 @@ export default function TrackerRow ({
         className="input-ac row-cell"
         name="ac"
         value={character.ac}
+        autoComplete="off"
         onChange={(e) =>
           dispatch({
             type: "UPDATE",
