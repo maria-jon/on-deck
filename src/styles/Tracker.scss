@@ -148,6 +148,7 @@ input {
 
 .name-autocomplete__item:hover {
   background: var(--gold-darker);
+  border-radius: 0;
 }
 
 // -------------------- HP INPUT --------------------
@@ -193,6 +194,7 @@ button.minus svg {
 
 .health-input__item:hover {
   background: var(--gold-darker);
+  border-radius: 0;
 }
 
 .hp-modifier {
