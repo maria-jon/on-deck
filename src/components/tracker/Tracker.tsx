@@ -6,7 +6,7 @@ import { type MonsterListItem } from "./NameAutocomplete";
 import { fetchMonsterIndex, fetchMonsterByIndex } from "../../lib/dnd5e/client";
 import TrackerRow from "./TrackerRow";
 import Stopwatch from "../Stopwatch";
-import { NextIcon, SortIcon, AddNewIcon, NewRoundIcon } from "../utils/IconSVGs";
+import { NextIcon, SortIcon, AddNewIcon, NewRoundIcon, LinkIcon } from "../utils/IconSVGs";
 
 type TrackerState = {
   round: number;
@@ -23,26 +23,8 @@ type Action =
   | { type: "REMOVE"; id: string }
 ;
 
-function createEmptyCharacter(): Character {
-  return {
-    id: crypto.randomUUID(),
-    name: "",
-    initiative: "",
-    hp: "",
-    ac: "",
-    type: "pc",
-    hasActed: false,
-  }
-}
-
-function makeInitialState(): TrackerState {
-  const characters = Array.from({ length: 4 }, () => createEmptyCharacter());
-  return {
-    round: 1,
-    characters,
-    activeId: characters[0]?.id ?? null,
-  }
-}
+type PersistedState = TrackerState;
+const STORAGE_KEY = "initiative-tracker:v1";
 
 function reducer(state: TrackerState, action: Action): TrackerState {
   switch (action.type) {
@@ -174,10 +156,89 @@ function reducer(state: TrackerState, action: Action): TrackerState {
   }
 }
 
+// URL ENCODE/DECODE HELPERS
+
+function encodeState(state: unknown): string {
+  const json = JSON.stringify(state);
+  const bytes = new TextEncoder().encode(json);
+  let bin = "";
+  bytes.forEach((b) => (bin += String.fromCharCode(b)));
+  return btoa(bin);
+}
+
+function decodeState<T>(encoded: string): T {
+  const bin = atob(encoded);
+  const bytes = new Uint8Array([...bin].map((ch) => ch.charCodeAt(0)));
+  const json = new TextDecoder().decode(bytes);
+  return JSON.parse(json) as T;
+}
+
+function loadFromUrlHash(): PersistedState | null {
+  const hash = window.location.hash; // "#s=..."
+  const match = hash.match(/(?:^#|&)s=([^&]+)/);
+  if (!match) return null;
+
+  try {
+    return decodeState<PersistedState>(match[1]);
+  } catch {
+    return null;
+  }
+}
+
+// LOCALSTORAGE HELPERS
+
+function loadFromLocalStorage(): PersistedState | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw) as PersistedState;
+  } catch {
+    return null;
+  }
+}
+
+function saveToLocalStorage(state: PersistedState) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // ignore quota/private mode issues
+  }
+}
+
+function createEmptyCharacter(): Character {
+  return {
+    id: crypto.randomUUID(),
+    name: "",
+    initiative: "",
+    hp: "",
+    ac: "",
+    type: "pc",
+    hasActed: false,
+  }
+}
+
+function makeDefaultState(): TrackerState {
+  const characters = Array.from({ length: 4 }, () => createEmptyCharacter());
+  return {
+    round: 1,
+    characters,
+    activeId: characters[0]?.id ?? null,
+  }
+}
+
+function makeInitialState(): TrackerState {
+  const fallback = makeDefaultState();
+
+  if (typeof window === "undefined") return fallback;
+
+  return loadFromUrlHash() ?? loadFromLocalStorage() ?? fallback;
+}
+
 export default function Tracker() {
   const [state, dispatch] = useReducer(reducer, undefined, makeInitialState);
   const [monsterIndex, setMonsterIndex] = useState<MonsterListItem[]>([]);
   const [monsterError, setMonsterError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   async function pickMonsterForRow(rowId: string, monsterIdx: string) {
     try {
@@ -207,6 +268,31 @@ export default function Tracker() {
     }
   }
 
+  function isEmptyRow(c: Character) {
+    return (
+      !c.name &&
+      c.initiative === "" &&
+      c.hp === "" &&
+      c.ac === ""
+    );
+  }
+  
+  async function copySessionLink() {
+    const compact: PersistedState = {
+      ...state,
+      characters: state.characters.filter((c) => !isEmptyRow(c)),
+    };
+  
+    const encoded = encodeState(compact);
+    const url = new URL(window.location.href);
+    url.hash = `s=${encoded}`;
+  
+    await navigator.clipboard.writeText(url.toString());
+
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }  
+
   useEffect(() => {
     let cancelled = false;
   
@@ -223,6 +309,16 @@ export default function Tracker() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    saveToLocalStorage(state);
+  }, [state]);  
+
+  useEffect(() => {
+    if (window.location.hash.includes("s=")) {
+      history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);  
 
   return (
   <div className="tracker-wrapper">
@@ -252,29 +348,30 @@ export default function Tracker() {
     </div>
 
     <div className="tracker-controls">
-    <div className="control-buttons">
-          <button 
-            onClick={() => dispatch({ type: "NEXT" })}
-            className="button-icon"
-          >
-            <NextIcon 
-              size={24}
-              ariaHidden={true}
-            />
-            Next
-          </button>
-          <button 
-            onClick={() => dispatch({ type: "SORT" })}
-            className="button-icon"
-          >
-            <SortIcon
-              size={24}
-              ariaHidden={true}
-            />
-            Sort
-          </button>
-        </div>
+      <div className="control-buttons">
+        <button 
+          onClick={() => dispatch({ type: "NEXT" })}
+          className="button-icon"
+        >
+          <NextIcon 
+            size={24}
+            ariaHidden={true}
+          />
+          Next
+        </button>
+        <button 
+          onClick={() => dispatch({ type: "SORT" })}
+          className="button-icon"
+        >
+          <SortIcon
+            size={24}
+            ariaHidden={true}
+          />
+          Sort
+        </button>
+      </div>
 
+      <div className="control-buttons">
         <button 
           onClick={() => dispatch({ type: "NEW_ROUND" })}
           className="button-icon"
@@ -296,6 +393,20 @@ export default function Tracker() {
           />
           Add new
         </button>
+      </div>
+    </div>
+    <div className="tracker-controls">
+      <button 
+        type="button" 
+        onClick={copySessionLink}
+        className="button-icon"
+      >
+        <LinkIcon 
+          size={24}
+          ariaHidden={true}
+        />
+          {copied ? "Session link copied!" : "Copy session link"}
+      </button>
     </div>
   </div>
   )
