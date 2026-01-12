@@ -217,20 +217,24 @@ button:disabled {
 main {
   background-color: var(--gold-darker);
   padding: var(--margin-xs);
+  padding-bottom: var(--margin-xl);
+  border-radius: var(--radius-sm);
 }
 
 // Small devices
 @media (min-width: 600px) {
   main {
-    padding: var(--margin-sm);
-    margin: 0 var(--margin-md);
+    padding: var(--margin-md);
+    padding-bottom: var(--margin-xl);
+    margin: 0 var(--margin-lg);
   }
 }
 
 // Medium devices
 @media (min-width: 768px) {
   main {
-    padding: var(--margin-sm);
+    padding: var(--margin-lg);
+    padding-bottom: var(--margin-xl);
     margin: 0 var(--margin-xl);
   }
 }
@@ -238,7 +242,8 @@ main {
 // Large devices
 @media (min-width: 992px) {
   main {
-    padding: var(--margin-sm);
+    padding: var(--margin-xl);
+    padding-bottom: var(--margin-xl);
     margin: 0 var(--margin-xl);
   }
 }
