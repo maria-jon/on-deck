@@ -19,7 +19,7 @@ type Action =
   | { type: "UPDATE"; id: string; patch: Partial<Character> }
   | { type: "SORT" }
   | { type: "NEXT" }
-  | { type: "RESET_ROUND" }
+  | { type: "NEW_ROUND" }
   | { type: "REMOVE"; id: string }
 ;
 
@@ -46,12 +46,12 @@ function makeInitialState(): TrackerState {
 
 function reducer(state: TrackerState, action: Action): TrackerState {
   switch (action.type) {
-    case "RESET_ROUND": {
+    case "NEW_ROUND": {
       return { 
         ...state,
         round: state.round + 1,
         characters: state.characters.map((c) => ({ ...c, hasActed: false })),
-        // activeId
+        activeId: state.characters[0]?.id ?? null,
       };
     }
 
@@ -276,7 +276,7 @@ export default function Tracker() {
         </div>
 
         <button 
-          onClick={() => dispatch({ type: "RESET_ROUND" })}
+          onClick={() => dispatch({ type: "NEW_ROUND" })}
           className="button-icon"
         >
           <NewRoundIcon 
