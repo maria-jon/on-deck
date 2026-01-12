@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { WarningIcon } from "../utils/IconSVGs";
 
 export type MonsterListItem = {
   index: string;
@@ -11,6 +12,7 @@ type Props = {
   onTyped: (next: string) => void;        // Call when user types
   items: MonsterListItem[];               // Full monster list
   onPick: (monsterIndex: string) => void; // Call when user selects suggestion
+  toggleCondition: (condition: boolean) => void;
 
   disabled?: boolean;
   minChars?: number;     // Default 2
@@ -22,11 +24,13 @@ export default function NameAutocomplete({
   onTyped,
   items,
   onPick,
+  toggleCondition,
   disabled = false,
   minChars = 2,
   maxResults = 8,
 }: Props) {
   const [open, setOpen] = useState(false);
+  const [condition, setCondition] = useState(false);
 
   // Tracks if the user is currently interacting 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -92,6 +96,22 @@ export default function NameAutocomplete({
         aria-expanded={open}
         className="input-name row-cell"
       />
+
+      <button
+        onClick={() => setCondition(o => !o)}
+      >
+        C
+      </button>
+
+      {condition && (
+        <div>
+          <WarningIcon
+            size={18}
+            ariaHidden={false}
+            ariaLabel="Warning"
+          />
+        </div>
+      )}
 
       {open && matches.length > 0 && (
         <div className="name-autocomplete__menu" role="listbox">

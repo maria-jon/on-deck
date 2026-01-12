@@ -60,6 +60,9 @@ export default function TrackerRow ({
         }
         items={monsterIndex ?? []}
         onPick={(monsterIdx) => onPickMonster?.(character.id, monsterIdx)}
+        toggleCondition={(condition) => 
+          dispatch({ type: "UPDATE", id: character.id, patch: { condition } })
+        }
       />
       <HealthInput 
         value={character.hp}

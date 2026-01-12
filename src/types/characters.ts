@@ -6,4 +6,5 @@ export type Character = {
   ac: number | "";
   type: "pc" | "monster";
   hasActed: boolean;
+  condition?: boolean;
 };
