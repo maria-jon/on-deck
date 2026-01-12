@@ -7,11 +7,11 @@
 :root {
 	--black: #000121;
 	--white: #FDFCF9;
-	--blue-darker: #020670;
-  --blue-dark: #3034B0;
-  --blue: #464AC5;
-  --blue-light: #7D80F0;
-  --blue-lighter: #C7C9FF;
+  --blue-darker: #0D0D3D;
+  --blue-dark: #272766;
+  --blue: #4F5092;
+  --blue-light: #8B8BC2;
+  --blue-lighter: #CBCBE7;
   --gold-darker: #3D340D;
   --gold-dark: #705B02;
   --gold: #C5AC46;
@@ -47,7 +47,8 @@ body {
   font-style: normal;
   //line-height: 1.2;
   color: var(--gold-lighter);
-  background-color: var(--blue-darker);
+  background-color: var(--black);
+  background-image: linear-gradient(to bottom, var(--blue-darker), var(--black));
 }
 
 h1 {
