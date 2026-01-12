@@ -1,9 +1,72 @@
 ---
-
+import HeaderLogo from "../assets/d20-light.svg" 
 ---
 
 <footer>
-  <div>
-    footer
+  <div class="footer-nav">
+    <a href="/" class="logo">
+      <HeaderLogo 
+        width={32}
+        height={32}
+        aria-label="On Deck logo"
+        class="logo-img"
+      />
+    </a>
+    <nav aria-label="footer">
+      <a href="/">Home</a>
+      <a href="/how-to">How to use</a>
+      <a href="/about">About</a>
+    </nav>
   </div>
+  <div>© 2026 On Deck</div>
 </footer>
+
+<style lang="scss">
+  footer {
+    padding: var(--margin-xl) var(--margin-md);
+    min-height: 4.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--margin-sm);
+    margin: var(--margin-xl) 0;
+  }
+
+  .logo-img {
+    fill: #C5AC46;
+  }
+  .logo-img:hover {
+    fill: #FFF9DA;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: var(--margin-sm);
+
+    a.logo {
+      align-self: center;
+    }
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+
+    a {
+      color: var(--gold);
+      padding: var(--margin-xs);
+    }
+
+    a:hover {
+      background-color: var(--blue);
+      color: var(--gold-lighter);
+    }
+  }
+
+  @media (min-width: 600px) {
+    nav {
+      flex-direction: row;
+    }
+  }
+</style>
