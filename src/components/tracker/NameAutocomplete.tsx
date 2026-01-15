@@ -35,7 +35,7 @@ export default function NameAutocomplete({
 
   const matches = useMemo(() => {
     if (query.length < minChars) return [];
-    // switch to startsWith?
+    
     return items
       .filter((m) => m.name.toLowerCase().includes(query))
       .slice(0, maxResults);
@@ -72,6 +72,7 @@ export default function NameAutocomplete({
   }
 
   // Minimal keyboard support (Escape to close)
+  //TODO: Add more keyboard support
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Escape") setOpen(false);
   }

@@ -8,7 +8,6 @@
     margin: 1em 0;
 
     h2 {
-      //font-size: clamp(1em, 8vw, 3em);
       margin: 0;
     }
   }
@@ -232,7 +231,6 @@ button.minus svg {
 @media (min-width: 600px) {
   .tracker-wrapper {
     header > h2 {
-      //font-size: 3em;
       margin: 0;
     }
   }

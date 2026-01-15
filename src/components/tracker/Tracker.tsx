@@ -91,16 +91,16 @@ function reducer(state: TrackerState, action: Action): TrackerState {
       const safeIndex = currentIndex === -1 ? 0 : currentIndex;
       const current = list[safeIndex];
 
-      // 1) mark current as acted
+      // Mark current as acted
       const updated = list.map((c) =>
         c.id === current.id ? { ...c, hasActed: true } : c
       );
 
-      // 2) compute next active (move forward in the updated order)
+      // Compute next active (move forward in the updated order)
       const nextIndex = (safeIndex + 1) % updated.length;
       const nextActiveId = updated[nextIndex]?.id ?? null;
 
-      // 3) if everyone has acted, new round + reset hasActed
+      // If everyone has acted, new round + reset hasActed
       const allActed = updated.length > 0 && updated.every((c) => c.hasActed);
       if (allActed) {
         const resetForNewRound = updated.map((c) => ({ ...c, hasActed: false }));
@@ -201,7 +201,7 @@ function saveToLocalStorage(state: PersistedState) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch {
-    // ignore quota/private mode issues
+    // TODO: ignore quota/private mode issues
   }
 }
 
@@ -259,11 +259,11 @@ export default function Tracker() {
           hp,
           ac,
           type: "monster",
-          // initiative: leave blank or set later (dex mod / roll)
+          // TODO: initiative: ? 
         },
       });
     } catch (e) {
-      // optional: show a toast / inline message
+      // TODO: show a toast / inline message ?
       console.error("Failed to fetch monster", e);
     }
   }
@@ -298,7 +298,7 @@ export default function Tracker() {
   
     (async () => {
       try {
-        const data = await fetchMonsterIndex(); // should return { results: [...] }
+        const data = await fetchMonsterIndex(); 
         if (!cancelled) setMonsterIndex(data.results ?? []);
       } catch (e) {
         if (!cancelled) setMonsterError("Could not load monster list");

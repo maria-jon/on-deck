@@ -1,17 +1,6 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
 import Tracker from "../components/tracker/Tracker.tsx";
-
-/*
-const trackerProps = {
-	id: 0,
-	name: "",
-	initiative: 0,
-	hp: 0,
-	ac: 0,
-	type: "pc",
-	hasActed: false,
-}*/
 ---
 
 <BaseLayout
@@ -23,9 +12,6 @@ const trackerProps = {
 		An initiative tracker for D&D 5e
 	</p>
 
-	{/*<Tracker {...trackerProps} client:load />
-	<Tracker client:only="react" />
-	*/}
 	<Tracker client:load />
 
 	<p>
