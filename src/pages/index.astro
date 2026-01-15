@@ -1,34 +1,26 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
 import Tracker from "../components/tracker/Tracker.tsx";
-
-/*
-const trackerProps = {
-	id: 0,
-	name: "",
-	initiative: 0,
-	hp: 0,
-	ac: 0,
-	type: "pc",
-	hasActed: false,
-}*/
 ---
 
 <BaseLayout
 	title="On Deck - an initiative tracker for D&D"
 	description="Initiative tracker"
 >
-<h1>On Deck initiative tracker</h1>
+<h1 class="page-title">On Deck</h1>
 	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+		An initiative tracker for D&D 5e
 	</p>
 
-	{/*<Tracker {...trackerProps} client:load />
-	<Tracker client:only="react" />
-	*/}
 	<Tracker client:load />
 
 	<p>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</p>
 </BaseLayout>
+
+<style lang="scss">
+	.page-title {
+		font-size: 4em;
+	}
+</style>

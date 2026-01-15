@@ -1,4 +1,3 @@
-import type { Dispatch } from "react";
 import type { Character } from "../../types/characters";
 import NameAutocomplete from "./NameAutocomplete";
 import HealthInput from "./HealthInput";
