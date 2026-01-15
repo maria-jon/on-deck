@@ -220,14 +220,15 @@ button:disabled {
 main {
   background-color: var(--gold-darker);
   padding: var(--margin-md) var(--margin-xs) var(--margin-xl);
+  min-height: 70vh;
 }
 
 // Small devices
 @media (min-width: 600px) {
   main {
-    max-width: 90vw;
     padding: var(--margin-md) var(--margin-lg) var(--margin-xl);
     border-radius: var(--radius-sm);
+    width: clamp(50vw, 84%, 90vw);
   }
 
   h1 {
@@ -236,16 +237,17 @@ main {
 }
 
 // Medium devices
+/*
 @media (min-width: 768px) {
   main {
-    max-width: 80vw;
-    padding: var(--margin-md) var(--margin-xl) var(--margin-xl);
+
   }
 }
+*/
 
 // Large devices
 @media (min-width: 992px) {
   main {
-    max-width: 76vw;
+    max-width: 860px;
   }
 }
