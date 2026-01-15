@@ -8,6 +8,7 @@
     margin: 1em 0;
 
     h2 {
+      //font-size: clamp(1em, 8vw, 3em);
       margin: 0;
     }
   }
@@ -229,6 +230,13 @@ button.minus svg {
 // -------------------- RESPONSIVE STYLING --------------------
 
 @media (min-width: 600px) {
+  .tracker-wrapper {
+    header > h2 {
+      //font-size: 3em;
+      margin: 0;
+    }
+  }
+
   .tracker-row {
     grid-template-columns: 3fr 6fr 2.5fr 1.5fr 1.5fr;
   }
