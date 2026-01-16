@@ -6,13 +6,76 @@ import BaseLayout from "../layout/BaseLayout.astro"
 	title="About On Deck - an initiative tracker for D&D"
 	description="Initiative tracker"
 >
-<h1>
-  About On Deck
-</h1>
-	<div>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-	</div>
-	<div>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-	</div>
+<section 
+	class="about-section"
+	aria-labelledby="about-title"
+>
+	<h1 id="about-title">
+		About On Deck
+	</h1>
+		<p>
+			When you're running a game in Dungeons & Dragons, there are a lot of things you need to keep track of: 
+			rules, lore, ensuring everyone is having a good time, and space out snack breaks to keep up morale. 
+		</p>
+		<p>
+			During combat, there are <span class="italic">even more</span> moving parts than usual - 
+			Open Deck is a tool that can help reduce cognitive load during gameplay so the DM can focus on 
+			storytelling and player experience. 
+		</p>
+		<p>
+			On Deck keeps track of initiative order, turns and rounds, as well as the health of player characters 
+			and monsters. It also has a timer function to help you space out breaks.
+		</p>
+		<p>
+			On Deck is using the <a href="https://www.dnd5eapi.co/">D&D 5e API</a> for monster data to 
+			automagically fill in HP and AC when adding monsters to encounters.
+		</p>
+	</section>
+	<section 
+		class="more-section"
+		aria-labelledby="dev-title"
+	>
+		<h2 id="dev-title">About the dev</h2>
+		<p>
+			On Deck is made by Maria Jonasson, and I'm a front-end developer student at Medieinstitutet. Open Deck is my degree project.
+		</p>
+		<p>
+			You're welcome to check out the <a href="https://github.com/maria-jon/on-deck">repo on GitHub</a> 
+			or head over to <a href="https://www.linkedin.com/in/maria-jonasson-a4ba24115/">connect with me on LinkedIn</a>.
+		</p>
+	</section>
 </BaseLayout>
+
+<style lang="scss">
+	.about-section {
+		p {
+			margin: var(--margin-lg);
+		}
+
+	}
+
+	.more-section {
+		margin: var(--margin-xl) var(--margin-md) 0;
+		background-color: var(--gold);
+		padding: var(--margin-md);
+		color: var(--gold-darker);
+		border-radius: var(--radius-sm);
+
+		h2 {
+			font-size: 2em;
+			margin: 0;
+		}
+
+		p {
+			margin: var(--margin-lg);
+		}
+		
+		a {
+			color: var(--blue-darker);
+		}
+
+		a:hover {
+			color: var(--blue-dark);
+		}
+	}
+</style>

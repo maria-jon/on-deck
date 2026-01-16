@@ -46,7 +46,7 @@ body {
   font-family: "Jost", Tahoma, Geneva, Verdana, sans-serif;
   text-align: left;
   font-size: 1em;
-  font-weight: 400;
+  font-weight: 300;
   font-style: normal;
   color: var(--gold-lighter);
   background-color: var(--black);
@@ -81,6 +81,7 @@ h6 {
 
 p {
   font-size: 1em;
+  line-height: 1.5;
 }
 
 .italic {
@@ -93,6 +94,15 @@ p {
 
 .small-text {
   font-size: 0.75em;
+}
+
+a {
+  font-weight: 400;
+  color: var(--gold-light);
+}
+
+a:hover {
+  color: var(--blue-lighter);
 }
 
 // -------------------- BUTTONS --------------------
