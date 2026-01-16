@@ -6,34 +6,42 @@ import BaseLayout from "../layout/BaseLayout.astro"
 	title="How to use On Deck"
 	description="Initiative tracker"
 >
-<h1>How to use the initiative tracker</h1>
-	<ol>
-		<li>
-			Start typing a character or monster name in one of the name fields
-			<ul>
-				<li>If the name matches a monster, you can use the autocomplete options to fill out its HP and AC</li>
-				<li>For player characters or monsters not found, fill out HP and AC yourself</li>
-			</ul>
-		</li>
-		<li>
-			Click the "Add new" button if you need more rows for characters and monsters
-			<ul>
-				<li>If you have empty rows, click the trash icon to delete them</li>
-			</ul>
-		</li>
-		<li>Fill out the initiative for each character and monster</li>
-		<li>Click "Sort" button to sort all participants by turn order</li>
-		<li>
-			Click "Next" button during combat to advance the turn
-			<ul>
-				<li>On Deck automagically keeps track of rounds for you</li>
-			</ul>
-		</li>
-		<li>You can either manually change HP as combat progresses, or click the plus/minus button to enter the amount of HP the character takes as damage or healing</li>
-	</ol>
+	<section
+		class="how-to-section"
+		aria-labelledby="how-to-title"
+	>
+	<h1 id="how-to-title">How to use the initiative tracker</h1>
+		<ol>
+			<li>
+				Start typing a character or monster name in one of the name fields
+				<ul>
+					<li>If the name matches a monster, you can use the autocomplete options to fill out its HP and AC</li>
+					<li>For player characters or monsters not found, fill out HP and AC yourself</li>
+				</ul>
+			</li>
+			<li>
+				Click the "Add new" button if you need more rows for characters and monsters
+				<ul>
+					<li>If you have empty rows, click the trash icon to delete them</li>
+				</ul>
+			</li>
+			<li>Fill out the initiative for each character and monster</li>
+			<li>Click "Sort" button to sort all participants by turn order</li>
+			<li>
+				Click "Next" button during combat to advance the turn
+				<ul>
+					<li>On Deck automagically keeps track of rounds for you</li>
+				</ul>
+			</li>
+			<li>You can either manually change HP as combat progresses, or click the plus/minus button to enter the amount of HP the character takes as damage or healing</li>
+		</ol>
+	</section>
 
-	<section class="more-section">
-		<h2>More tips</h2>
+	<section 
+		class="more-section"
+		aria-labelledby="more-tips-title"
+	>
+		<h2 id="more-tips-title">More tips</h2>
 		<ul class="more">
 			<li>The progress is saved in your browser's local storage, but if you want to save the session between devices, you can use "Copy session link" to share the URL with yourself (or someone else)</li>
 			<li>Feel free to use the stopwatch to keep track of time so you don't go too long without a break. Remember - life is short, D&D is long!</li>
