@@ -107,11 +107,11 @@ export default function HealthInput({
       </button>
 
       {open && options && (
-        <div className="health-input__menu" role="listbox">
+        <div className="health-input__menu" role="listbox" aria-labelledby="hp-modifier-label">
           <label
             className="hp-modifier__label"
           >
-            <span>Adjust HP</span>
+            <span id="hp-modifier-label">Adjust HP</span>
             <input 
               ref={inputModifierRef}
               name="hp-modifier"
