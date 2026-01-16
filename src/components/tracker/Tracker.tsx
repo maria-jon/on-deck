@@ -321,7 +321,10 @@ export default function Tracker() {
   }, []);  
 
   return (
-  <div className="tracker-wrapper">
+  <section 
+    className="tracker-wrapper"
+    aria-label="Initiative tracker"
+  >
     <header>
       <h2>Round {state.round}</h2>
       <Stopwatch />
@@ -329,10 +332,10 @@ export default function Tracker() {
     
     <div className="tracker-container">
       <div className="tracker-row head">
-        <div className="row-initiative">Initiative</div>
-        <div className="row-name">Name</div>
-        <div className="row-hp">HP</div>
-        <div className="row-ac">AC</div>
+        <div className="row-initiative" id="initiative-label">Initiative</div>
+        <div className="row-name" id="name-label">Name</div>
+        <div className="row-hp" id="hp-label">HP</div>
+        <div className="row-ac" id="ac-label">AC</div>
         <div className="row-edit"></div>
       </div>
       {state.characters.map((c) => (
@@ -347,7 +350,10 @@ export default function Tracker() {
       ))}
     </div>
 
-    <div className="tracker-controls">
+    <div 
+      className="tracker-controls"
+      aria-label="Tracker controls"
+    >
       <div className="control-buttons">
         <button 
           onClick={() => dispatch({ type: "NEXT" })}
@@ -408,6 +414,6 @@ export default function Tracker() {
           {copied ? "Session link copied!" : "Copy session link"}
       </button>
     </div>
-  </div>
+  </section>
   )
 };

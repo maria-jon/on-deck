@@ -83,6 +83,7 @@ export default function NameAutocomplete({
         ref={inputRef}
         name="name"
         value={value}
+        aria-labelledby="name-label"
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}

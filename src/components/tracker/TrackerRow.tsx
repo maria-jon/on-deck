@@ -38,11 +38,15 @@ export default function TrackerRow ({
     .join(" ");
 
   return(
-    <div className={rowClassName}>
+    <div 
+      className={rowClassName}
+      aria-label={`Character row ${character.name}`}
+    >
       <input 
         className="input-initiative row-cell"
         name="initiative"
         value={character.initiative}
+        aria-labelledby="initiative-label"
         autoComplete="off"
         onChange={(e) =>
           dispatch({
@@ -74,6 +78,7 @@ export default function TrackerRow ({
         className="input-ac row-cell"
         name="ac"
         value={character.ac}
+        aria-labelledby="ac-label"
         autoComplete="off"
         onChange={(e) =>
           dispatch({
