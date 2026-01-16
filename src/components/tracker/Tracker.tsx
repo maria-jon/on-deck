@@ -321,7 +321,10 @@ export default function Tracker() {
   }, []);  
 
   return (
-  <div className="tracker-wrapper">
+  <section 
+    className="tracker-wrapper"
+    aria-label="Initiative tracker"
+  >
     <header>
       <h2>Round {state.round}</h2>
       <Stopwatch />
@@ -347,7 +350,10 @@ export default function Tracker() {
       ))}
     </div>
 
-    <div className="tracker-controls">
+    <div 
+      className="tracker-controls"
+      aria-label="Tracker controls"
+    >
       <div className="control-buttons">
         <button 
           onClick={() => dispatch({ type: "NEXT" })}
@@ -408,6 +414,6 @@ export default function Tracker() {
           {copied ? "Session link copied!" : "Copy session link"}
       </button>
     </div>
-  </div>
+  </section>
   )
 };

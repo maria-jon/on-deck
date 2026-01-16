@@ -38,7 +38,10 @@ export default function TrackerRow ({
     .join(" ");
 
   return(
-    <div className={rowClassName}>
+    <div 
+      className={rowClassName}
+      aria-label={`Character row ${character.name}`}
+    >
       <input 
         className="input-initiative row-cell"
         name="initiative"
