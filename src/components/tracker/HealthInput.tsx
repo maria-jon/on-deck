@@ -98,6 +98,7 @@ export default function HealthInput({
         className={`button-icon plus-minus 
           ${hasActed ? "" : "button-dark"}`
         }
+        aria-label="Toggle menu to adjust health"
       >
         <PlusMinusIcon 
             size={24}
