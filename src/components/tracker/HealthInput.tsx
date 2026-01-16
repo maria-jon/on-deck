@@ -86,6 +86,7 @@ export default function HealthInput({
       <input
         name="hp"
         value={value}
+        aria-labelledby="hp-label"
         onChange={handleChange}
         disabled={disabled}
         aria-expanded={open}
@@ -106,32 +107,37 @@ export default function HealthInput({
 
       {open && options && (
         <div className="health-input__menu" role="listbox">
-          <input 
-            ref={inputModifierRef}
-            name="hp-modifier"
-            type="number"
-            className="hp-modifier"
-            value={hpModifier}
-            onChange={handleModifierChange}
-          />
-          {options.map((h) => (
-            <button
-              key={h.name}
-              type="button"
-              className={`health-input__item ${h.icon}`}
-              onMouseDown={(e) => {
-                e.preventDefault();
-              }}
-              onClick={() => handleHpChange(h.name)}
-              role="option"
-            >
-              {h.icon === "plus" 
-                ? <HeartPlusIcon size={24} ariaHidden={true} />
-                  : <HeartMinusIcon size={24} ariaHidden={true} />
-              }
-              {h.name}
-            </button>
-          ))}
+          <label
+            className="hp-modifier__label"
+          >
+            <span>Adjust HP</span>
+            <input 
+              ref={inputModifierRef}
+              name="hp-modifier"
+              type="number"
+              className="hp-modifier"
+              value={hpModifier}
+              onChange={handleModifierChange}
+            />
+            {options.map((h) => (
+              <button
+                key={h.name}
+                type="button"
+                className={`health-input__item ${h.icon}`}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
+                onClick={() => handleHpChange(h.name)}
+                role="option"
+              >
+                {h.icon === "plus" 
+                  ? <HeartPlusIcon size={24} ariaHidden={true} />
+                    : <HeartMinusIcon size={24} ariaHidden={true} />
+                }
+                {h.name}
+              </button>
+            ))}
+          </label>
         </div>
       )}
     </div>
