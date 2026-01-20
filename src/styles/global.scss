@@ -262,6 +262,29 @@ main {
   }
 }
 
+@keyframes icon-jump {
+  /*
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+  */
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   button {
     transition: all 0.25s ease-in-out;
@@ -269,5 +292,11 @@ main {
 
   a {
     transition: all 0.25s ease-in-out;
+  }
+
+  .button-icon:hover {
+    svg {
+      animation: icon-jump 400ms ease-in;
+    }
   }
 }
