@@ -72,7 +72,6 @@ export default function NameAutocomplete({
   }
 
   // Minimal keyboard support (Escape to close)
-  //TODO: Add more keyboard support
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Escape") setOpen(false);
   }
