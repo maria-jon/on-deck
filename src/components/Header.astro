@@ -49,4 +49,25 @@ import HeaderLogo from "../assets/d20-light.svg"
       color: var(--gold-lighter);
     }
   }
+
+  @keyframes title-jump {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(6deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .logo-img:hover {
+      animation: title-jump 400ms ease-in-out;
+    }
+    .logo-img {
+      transition: all 0.25s ease-in-out;
+    }
+  }
 </style>
