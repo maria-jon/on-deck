@@ -261,3 +261,13 @@ main {
     max-width: 860px;
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  button {
+    transition: all 0.25s ease-in-out;
+  }
+
+  a {
+    transition: all 0.25s ease-in-out;
+  }
+}
