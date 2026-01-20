@@ -299,4 +299,10 @@ main {
       animation: icon-jump 400ms ease-in;
     }
   }
+
+  .stopwatch__controls button:hover {
+    svg {
+      animation: icon-jump 400ms ease-in;
+    }
+  }
 }
