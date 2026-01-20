@@ -56,6 +56,11 @@ export default function HealthInput({
     setOpen(false);
   }
 
+  // Minimal keyboard support (Escape to close)
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Escape") setOpen(false);
+  }
+
   useEffect(() => {
     if (!open) return;
 
@@ -119,6 +124,7 @@ export default function HealthInput({
               className="hp-modifier"
               value={hpModifier}
               onChange={handleModifierChange}
+              onKeyDown={handleKeyDown}
             />
             {options.map((h) => (
               <button
