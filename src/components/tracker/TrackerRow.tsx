@@ -58,6 +58,7 @@ export default function TrackerRow ({
       />
       <NameAutocomplete 
         value={character.name}
+        rowId={character.id}
         onTyped={(name) => 
           dispatch({ type: "UPDATE", id: character.id, patch: { name } })
         }

@@ -8,6 +8,7 @@ export type MonsterListItem = {
 
 type Props = {
   value: string;                          // Current text in the input from parent
+  rowId: string;
   onTyped: (next: string) => void;        // Call when user types
   items: MonsterListItem[];               // Full monster list
   onPick: (monsterIndex: string) => void; // Call when user selects suggestion
@@ -19,6 +20,7 @@ type Props = {
 
 export default function NameAutocomplete({
   value,
+  rowId,
   onTyped,
   items,
   onPick,
@@ -32,6 +34,8 @@ export default function NameAutocomplete({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const query = value.trim().toLowerCase();
+
+  const listBoxId = `listbox-${rowId}`;
 
   const matches = useMemo(() => {
     if (query.length < minChars) return [];
@@ -77,7 +81,13 @@ export default function NameAutocomplete({
   }
 
   return (
-    <div className="name-autocomplete row-cell">
+    <div 
+      className="name-autocomplete row-cell"
+      role="combobox"
+      aria-expanded={open}
+      aria-controls={open ? listBoxId : undefined}
+      aria-haspopup="listbox"
+    >
       <input
         ref={inputRef}
         name="name"
@@ -90,12 +100,15 @@ export default function NameAutocomplete({
         autoComplete="off"
         disabled={disabled}
         aria-autocomplete="list"
-        aria-expanded={open}
         className="input-name row-cell"
       />
 
       {open && matches.length > 0 && (
-        <div className="name-autocomplete__menu" role="listbox">
+        <div 
+          className="name-autocomplete__menu" 
+          role="listbox"
+          id={listBoxId}
+        >
           {matches.map((m) => (
             <button
               key={m.index}
