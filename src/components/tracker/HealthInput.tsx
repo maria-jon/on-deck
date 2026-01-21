@@ -94,7 +94,7 @@ export default function HealthInput({
         aria-labelledby="hp-label"
         onChange={handleChange}
         disabled={disabled}
-        aria-expanded={open}
+        //aria-expanded={open}
         className="input-hp row-cell"
       />
 
@@ -104,6 +104,8 @@ export default function HealthInput({
           ${hasActed ? "" : "button-dark"}`
         }
         aria-label="Toggle menu to adjust health"
+        aria-expanded={open}
+        aria-controls="hp-adjust-dialog"
       >
         <PlusMinusIcon 
             size={24}
@@ -112,7 +114,12 @@ export default function HealthInput({
       </button>
 
       {open && options && (
-        <div className="health-input__menu" role="listbox" aria-labelledby="hp-modifier-label">
+        <div 
+          className="health-input__menu" 
+          id="hp-adjust-dialog"
+          role="dialog" 
+          aria-labelledby="hp-modifier-label"
+        >
           <label
             className="hp-modifier__label"
           >
