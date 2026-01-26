@@ -356,14 +356,14 @@ export default function Tracker() {
     >
       <div className="control-buttons">
         <button 
-          onClick={() => dispatch({ type: "NEXT" })}
+          onClick={() => dispatch({ type: "ADD_NEW" })}
           className="button-icon"
         >
-          <NextIcon 
+          <AddNewIcon 
             size={24}
             ariaHidden={true}
           />
-          Next
+          Add new
         </button>
         <button 
           onClick={() => dispatch({ type: "SORT" })}
@@ -390,14 +390,14 @@ export default function Tracker() {
         </button>
 
         <button 
-          onClick={() => dispatch({ type: "ADD_NEW" })}
+          onClick={() => dispatch({ type: "NEXT" })}
           className="button-icon"
         >
-          <AddNewIcon 
+          <NextIcon 
             size={24}
             ariaHidden={true}
           />
-          Add new
+          Next turn
         </button>
       </div>
     </div>
