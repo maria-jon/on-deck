@@ -14,13 +14,61 @@ import Tracker from "../components/tracker/Tracker.tsx";
 
 	<Tracker client:only="react" />
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+	<section
+		class="how-to-section"
+		aria-labelledby="how-to-title"
+	>
+	<h2 id="how-to-title">How to use the initiative tracker</h2>
+		<ol>
+			<li>
+				Start typing a character or monster name in one of the name fields
+				<ul>
+					<li>If the name matches a monster, you can use the autocomplete options to fill out its HP and AC</li>
+					<li>For player characters or monsters not found, fill out HP and AC yourself</li>
+				</ul>
+			</li>
+			<li>
+				Click the "Add new" button if you need more rows for characters and monsters
+				<ul>
+					<li>If you have empty rows, click the trash icon to delete them</li>
+				</ul>
+			</li>
+			<li>Fill out the initiative for each character and monster</li>
+			<li>Click "Sort" button to sort all participants by turn order</li>
+			<li>
+				Click "Next turn" button during combat to advance the turn
+				<ul>
+					<li>On Deck automagically keeps track of rounds for you</li>
+				</ul>
+			</li>
+			<li>You can either manually change HP as combat progresses, or click the plus/minus button to enter the amount of HP the character takes as damage or healing</li>
+		</ol>
+	</section>
 </BaseLayout>
 
 <style lang="scss">
 	.page-title {
 		font-size: 4em;
+	}
+
+	.how-to-section {
+		margin-top: var(--margin-xl);
+	}
+
+	#how-to-title {
+		font-size: 2.25em;
+		margin: 0;
+	}
+
+	ol {
+		margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: var(--margin-xl);
+		margin: var(--margin-lg);
+		margin-top: var(--margin-sm);
+	}
+
+	ol > li {
+		margin-bottom: var(--margin-sm);
 	}
 </style>
