@@ -19,14 +19,13 @@ On Deck keeps track of initiative order, turns and rounds, as well as the health
    
 ## Features
 
-- Keeps track of initiative order, turns, and rounds
+- Tracker for initiative order, turns, and rounds, as well as HP and AC 
 - Sorts characters according to initiative 
 - Autofills monster data from [D&D 5e API](https://www.dnd5eapi.co/)
-- Tracker for HP and AC 
 - Easy HP adjustment without mental arithmetics
 - Stopwatch to either keep track of time so you don't play too long without a break, or to time indivudal players' turns
 - Saves data in browser local storage, with the option to save the session via URL between devices
-- Responsive layout that works on desktop, tablet, and mobile devices 
+- Responsive and accessible layout that works on desktop, tablet, and mobile devices 
 
 ## Tech Stack
 
