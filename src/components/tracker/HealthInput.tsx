@@ -51,6 +51,7 @@ export default function HealthInput({
     if (changeType === "Heal") newValue = hitPoints + mod;
     if (changeType === "Damage") newValue = hitPoints - mod;
     
+    newValue = Math.max(0, newValue);
     onHpChange(newValue);
     setHpModifier("");
     setOpen(false);
