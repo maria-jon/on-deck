@@ -95,7 +95,6 @@ export default function HealthInput({
         aria-labelledby="hp-label"
         onChange={handleChange}
         disabled={disabled}
-        //aria-expanded={open}
         className="input-hp row-cell"
       />
 
