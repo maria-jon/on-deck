@@ -30,8 +30,11 @@ export default function NameAutocomplete({
 }: Props) {
   const [open, setOpen] = useState(false);
 
-  // Tracks if the user is currently interacting 
+  // Tracks if the user is currently interacting with name input
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // Tracks if the user is currently interacting with wrapper
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   const query = value.trim().toLowerCase();
 
@@ -70,9 +73,21 @@ export default function NameAutocomplete({
     inputRef.current?.focus();
   }
 
-  function handleBlur() {
-    // Delay so a click on a dropdown item still registers
-    window.setTimeout(() => setOpen(false), 120);
+  function handleWrapperBlur(e: React.FocusEvent<HTMLDivElement>) {
+    const nextFocused = e.relatedTarget as Node | null;
+    const el = wrapperRef.current;
+
+    // Close if focus is outside of component
+    if (!el) return;
+
+    if (nextFocused && !el.contains(nextFocused)) {
+      setOpen(false);
+    }
+
+    // Close if null 
+    if (!nextFocused) {
+      setOpen(false);
+    }
   }
 
   // Minimal keyboard support (Escape to close)
@@ -82,25 +97,26 @@ export default function NameAutocomplete({
 
   return (
     <div 
+      ref={wrapperRef}
       className="name-autocomplete row-cell"
       role="combobox"
       aria-expanded={open}
       aria-controls={open ? listBoxId : undefined}
       aria-haspopup="listbox"
+      onBlur={handleWrapperBlur}
     >
       <input
         ref={inputRef}
         name="name"
         value={value}
+        className="input-name row-cell"
         aria-labelledby="name-label"
         onChange={handleChange}
         onFocus={handleFocus}
-        onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         autoComplete="off"
         disabled={disabled}
         aria-autocomplete="list"
-        className="input-name row-cell"
       />
 
       {open && matches.length > 0 && (
@@ -114,10 +130,7 @@ export default function NameAutocomplete({
               key={m.index}
               type="button"
               className="name-autocomplete__item"
-              onMouseDown={(e) => {
-                // Prevent blur firing before click
-                e.preventDefault();
-              }}
+              onMouseDown={(e) => e.preventDefault()}
               onClick={() => handlePick(m.index)}
               role="option"
             >
