@@ -6,7 +6,7 @@ import { type MonsterListItem } from "./NameAutocomplete";
 import { fetchMonsterIndex, fetchMonsterByIndex } from "../../lib/dnd5e/client";
 import TrackerRow from "./TrackerRow";
 import Stopwatch from "../Stopwatch";
-import { NextIcon, SortIcon, AddNewIcon, NewRoundIcon, LinkIcon } from "../utils/IconSVGs";
+import { NextIcon, SortIcon, AddNewIcon, NewRoundIcon, LinkIcon, ResetIcon } from "../utils/IconSVGs";
 
 type TrackerState = {
   round: number;
@@ -21,6 +21,7 @@ type Action =
   | { type: "NEXT" }
   | { type: "NEW_ROUND" }
   | { type: "REMOVE"; id: string }
+  | { type: "RESET_TRACKER" }
 ;
 
 type PersistedState = TrackerState;
@@ -149,6 +150,10 @@ function reducer(state: TrackerState, action: Action): TrackerState {
         characters: filtered,
         activeId: filtered[nextIndex]?.id ?? null,
       };
+    }
+
+    case "RESET_TRACKER": {
+      return makeDefaultState();
     }
 
     default:
@@ -412,6 +417,21 @@ export default function Tracker() {
           ariaHidden={true}
         />
           {copied ? "Session link copied!" : "Copy session link"}
+      </button>
+      <button 
+        type="button" 
+        onClick={() => {
+          if(confirm("Reset the tracker? This will clear the current encounter.")) {
+            dispatch({ type: "RESET_TRACKER" });
+          }
+        }}
+        className="button-icon button-warning"
+      >
+        <ResetIcon 
+          size={24}
+          ariaHidden={true}
+        />
+          Reset tracker
       </button>
     </div>
   </section>
