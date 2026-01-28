@@ -19,6 +19,7 @@
   display: grid;
   grid-template-rows: auto;
   gap: 3px;
+  border-radius: var(--margin-xs);
 }
 
 .tracker-row {
@@ -44,16 +45,129 @@ div.item > div {
   padding: var(--margin-xs);
 }
 
+// -------------------- TRACKER CONTROLS --------------------
+
 .tracker-controls {
   padding-top: var(--margin-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--margin-lg);
+}
+
+.tracker-controls__section {
   display: flex;
   justify-content: space-between;
 }
 
 .control-buttons {
   display: flex;
-  gap: var(--margin-sm)
+  gap: var(--margin-sm);
+  justify-content: space-between;
 }
+
+@media (max-width: 600px) {
+  .tracker-controls {
+    flex-direction: column;
+    gap: var(--margin-xl);
+
+    button {
+      display: flex;
+      flex-direction: row;
+      gap: var(--margin-sm);
+      justify-content: center;
+    }
+
+    .tracker-controls__section {
+      flex-direction: row;
+      gap: var(--margin-md);
+
+      button {
+        width: 100%;
+      }
+    }
+
+    .primary {
+      gap: var(--margin-xl);
+    
+      .control-buttons {
+        gap: var(--margin-md);
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+
+    .secondary {
+      flex-direction: column;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .tracker-controls {
+    flex-direction: column;
+    gap: var(--margin-xl);
+
+    /*
+    .primary {
+      gap: var(--margin-xl);
+    
+      button {
+        
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-sm);
+        justify-content: center;
+        width: 100%;
+        
+      }
+
+      .control-buttons {
+        gap: var(--margin-md);
+        flex-direction: column;
+        min-width: 40%;
+        max-width: 100%;
+      }
+    }
+    */
+
+    .primary {
+      gap: calc(var(--margin-xl) + 10%);
+
+      .add-sort {
+        flex-grow: 1;
+        max-width: 250px;
+
+        button {
+          flex-grow: 1;
+        }
+      }
+
+      .forward {
+        flex-grow: 2;
+        max-width: 300px;
+
+        button {
+          flex-grow: 1;
+        }
+      }
+    }
+
+    .secondary {
+      flex-direction: row;
+      gap: var(--margin-md);
+
+      button {
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-sm);
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
 
 // -------------------- TRACKER INPUTS --------------------
 
@@ -102,6 +216,11 @@ input {
   padding-left: 0;
   padding-right: 0;
   width: 100%;
+}
+
+.input-initiative, 
+.input-ac {
+  border-radius: 0;
 }
 
 // -------------------- AUTOCOMPLETE --------------------
@@ -240,6 +359,10 @@ button.minus svg {
     header > h2 {
       margin: 0;
     }
+  }
+
+  .tracker-container {
+    padding: var(--margin-sm);
   }
 
   .tracker-row {

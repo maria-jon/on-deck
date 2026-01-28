@@ -8,7 +8,7 @@ import Tracker from "../components/tracker/Tracker.tsx";
 	description="Initiative tracker"
 >
 <h1 class="page-title">On Deck</h1>
-	<p>
+	<p class="title-tag">
 		An initiative tracker for D&D 5e
 	</p>
 
@@ -71,4 +71,14 @@ import Tracker from "../components/tracker/Tracker.tsx";
 	ol > li {
 		margin-bottom: var(--margin-sm);
 	}
+
+	@media (max-width: 600px) {
+    .page-title {
+      display: none;
+    }
+
+		.title-tag {
+      display: none;
+    }
+  }
 </style>

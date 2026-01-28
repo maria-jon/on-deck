@@ -369,80 +369,83 @@ export default function Tracker() {
       className="tracker-controls"
       aria-label="Tracker controls"
     >
-      <div className="control-buttons">
-        <button 
-          onClick={() => dispatch({ type: "ADD_NEW" })}
-          className="button-icon"
-        >
-          <AddNewIcon 
-            size={24}
-            ariaHidden={true}
-          />
-          Add new
-        </button>
-        <button 
-          onClick={() => dispatch({ type: "SORT" })}
-          className="button-icon"
-        >
-          <SortIcon
-            size={24}
-            ariaHidden={true}
-          />
-          Sort
-        </button>
+      <div className="tracker-controls__section primary">
+        <div className="control-buttons add-sort">
+          <button 
+            onClick={() => dispatch({ type: "ADD_NEW" })}
+            className="button-icon"
+          >
+            <AddNewIcon 
+              size={24}
+              ariaHidden={true}
+            />
+            Add new
+          </button>
+          <button 
+            onClick={() => dispatch({ type: "SORT" })}
+            className="button-icon"
+          >
+            <SortIcon
+              size={24}
+              ariaHidden={true}
+            />
+            Sort
+          </button>
+        </div>
+
+        <div className="control-buttons forward">
+          <button 
+            onClick={() => dispatch({ type: "NEW_ROUND" })}
+            className="button-icon"
+          >
+            <NewRoundIcon 
+              size={24}
+              ariaHidden={true}
+            />
+            New round
+          </button>
+
+          <button 
+            onClick={() => dispatch({ type: "NEXT" })}
+            className="button-icon"
+          >
+            <NextIcon 
+              size={24}
+              ariaHidden={true}
+            />
+            Next turn
+          </button>
+        </div>
       </div>
 
-      <div className="control-buttons">
+      <div className="tracker-controls__section secondary">
         <button 
-          onClick={() => dispatch({ type: "NEW_ROUND" })}
+          type="button" 
+          onClick={copySessionLink}
           className="button-icon"
         >
-          <NewRoundIcon 
+          <LinkIcon 
             size={24}
             ariaHidden={true}
           />
-          New round
+            {copied ? "Session link copied!" : "Copy session link"}
         </button>
-
         <button 
-          onClick={() => dispatch({ type: "NEXT" })}
-          className="button-icon"
+          type="button" 
+          onClick={() => {
+            if(confirm("Reset the tracker? This will clear the current encounter.")) {
+              resetTracker();
+            }
+          }}
+          className="button-icon button-warning"
         >
-          <NextIcon 
+          <ResetIcon 
             size={24}
             ariaHidden={true}
           />
-          Next turn
+            Reset tracker
         </button>
       </div>
-    </div>
-    <div className="tracker-controls">
-      <button 
-        type="button" 
-        onClick={copySessionLink}
-        className="button-icon"
-      >
-        <LinkIcon 
-          size={24}
-          ariaHidden={true}
-        />
-          {copied ? "Session link copied!" : "Copy session link"}
-      </button>
-      <button 
-        type="button" 
-        onClick={() => {
-          if(confirm("Reset the tracker? This will clear the current encounter.")) {
-            resetTracker();
-          }
-        }}
-        className="button-icon button-warning"
-      >
-        <ResetIcon 
-          size={24}
-          ariaHidden={true}
-        />
-          Reset tracker
-      </button>
     </div>
   </section>
   )
