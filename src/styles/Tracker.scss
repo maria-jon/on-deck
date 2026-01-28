@@ -104,6 +104,12 @@ input {
   width: 100%;
 }
 
+
+.input-initiative, 
+.input-ac {
+  border-radius: 0;
+}
+
 // -------------------- AUTOCOMPLETE --------------------
 
 .name-autocomplete {
