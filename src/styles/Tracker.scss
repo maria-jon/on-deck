@@ -19,6 +19,7 @@
   display: grid;
   grid-template-rows: auto;
   gap: 3px;
+  border-radius: var(--margin-xs);
 }
 
 .tracker-row {
@@ -103,7 +104,6 @@ input {
   padding-right: 0;
   width: 100%;
 }
-
 
 .input-initiative, 
 .input-ac {
@@ -246,6 +246,10 @@ button.minus svg {
     header > h2 {
       margin: 0;
     }
+  }
+
+  .tracker-container {
+    padding: var(--margin-sm);
   }
 
   .tracker-row {
