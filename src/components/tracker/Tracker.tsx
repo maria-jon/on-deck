@@ -281,6 +281,16 @@ export default function Tracker() {
       c.ac === ""
     );
   }
+
+  function resetTracker() {
+    dispatch({ type: "RESET_TRACKER" });
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    if (window.location.hash.includes("s=")) {
+      history.replaceState(null, "", window.location.pathname);
+    }
+  }
   
   async function copySessionLink() {
     const compact: PersistedState = {
@@ -422,7 +432,7 @@ export default function Tracker() {
         type="button" 
         onClick={() => {
           if(confirm("Reset the tracker? This will clear the current encounter.")) {
-            dispatch({ type: "RESET_TRACKER" });
+            resetTracker();
           }
         }}
         className="button-icon button-warning"
