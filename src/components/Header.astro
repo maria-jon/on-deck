@@ -1,16 +1,42 @@
 ---
 import HeaderLogo from "../assets/d20-light.svg" 
+import MenuIcon from "../assets/icons/menu.svg"
+import CloseIcon from "../assets/icons/close_x.svg"
 ---
 
 <header>
-  <a href="/" aria-label="On Deck logo">
-    <HeaderLogo 
+  <div class="logo-wrapper">
+    <a href="/" aria-label="On Deck logo">
+      <HeaderLogo 
+        width={32}
+        height={32}
+        aria-hidden="true"
+        class="logo-img"
+      />
+    </a>
+    <div class="logo-text">
+      <h1>
+        On Deck
+      </h1>
+      <span>
+        An initiative tracker for D&D 5e
+      </span>
+    </div>
+  </div>
+  <button class="menu-button">
+    <MenuIcon
       width={32}
       height={32}
-      aria-hidden="true"
-      class="logo-img"
+      aria-label="Toggle menu"
+      class="burger-icon"
     />
-  </a>
+    <CloseIcon
+      width={32}
+      height={32}
+      aria-label="Toggle menu"
+      class="close-icon hidden"
+    />
+  </button>
   <nav>
     <a href="/">Home</a>
     <a href="/how-to">How to use</a>
@@ -27,6 +53,18 @@ import HeaderLogo from "../assets/d20-light.svg"
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .logo-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--margin-md);
+
+    h1 {
+      font-size: clamp(1.25em, 10vw, 1.75em);
+      line-height: 0.75;
+    }
   }
 
   .logo-img {
@@ -47,6 +85,60 @@ import HeaderLogo from "../assets/d20-light.svg"
     a:hover {
       background-color: var(--blue);
       color: var(--gold-lighter);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .logo-text h1, span {
+      color: var(--gold-lighter);
+    }
+
+		.menu-button {
+			display: inline-block;
+			background-color: transparent;
+			border: none;
+      height: 44px;
+		}
+
+    .menu-button > svg {
+      fill: #C5AC46;
+    }
+    .menu-button > svg:hover {
+      fill: #FFF9DA;
+    }
+
+		nav {
+			display: none;
+		}
+
+		.open-menu {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			gap: var(--margin-lg);
+			padding-top: var(--margin-xl);
+			position: absolute;
+			inset-inline-start: 0px;
+			inset-block-start: 70px;
+			background-color: var(--blue-darker);
+			z-index: 1;
+			width: 100vw;
+			height: 100%;
+
+      a {
+        font-size: 1.25em;
+      }
+		}
+  }
+
+  @media (min-width: 600px) {
+    .menu-button {
+			display: none;
+		}
+
+    .logo-text h1, span {
+      display: none;
     }
   }
 
@@ -71,3 +163,26 @@ import HeaderLogo from "../assets/d20-light.svg"
     }
   }
 </style>
+
+<script>
+	const menuButton = document.querySelector('button.menu-button');
+	const menuDropdown = document.querySelector('nav');
+	const menuIconBurger = document.querySelector('.burger-icon');
+	const menuIconClose = document.querySelector('.close-icon');
+
+	let menuOpen = false;
+
+	const toggleMenu = () => {
+		menuOpen = !menuOpen;
+
+		menuDropdown?.classList.toggle('open-menu');
+		menuIconBurger?.classList.toggle('hidden');
+		menuIconClose?.classList.toggle('hidden');
+
+		if(menuOpen) {
+			menuDropdown?.addEventListener('click', toggleMenu);
+		}
+	}
+
+	menuButton?.addEventListener('click', toggleMenu);
+</script>
